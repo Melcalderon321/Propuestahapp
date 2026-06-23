@@ -1,0 +1,3167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happ - Tu Portal de Salud Personalizado</title>
+  <!-- Google Fonts: Inter for clean, modern look -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  
+  <style>
+    /* DESIGN SYSTEM VARIABLES */
+    :root {
+      --color-bg-desktop: #0f172a; /* Slate 900 */
+      --color-phone-border: #334155; /* Slate 700 */
+      --color-phone-screen: #F8FAFF; /* Original --bg-light */
+      
+      --color-primary: #0037D8; /* Original --primary */
+      --color-primary-light: rgba(0, 55, 216, 0.05);
+      --color-secondary: #0ea5e9; /* Teal/Sky */
+      --color-secondary-light: #f0f9ff;
+      
+      --color-success: #358d56; /* Original --success */
+      --color-success-light: rgba(53, 141, 86, 0.06);
+      --color-warning: #f59e0b; /* Orange/Yellow */
+      --color-warning-light: #fefbeb;
+      --color-danger: #ef4444; /* Coral Red */
+      --color-danger-light: #fef2f2;
+      
+      --color-card-bg: rgba(255, 255, 255, 0.45);
+      --color-text-main: #333333; /* Original --text-dark */
+      --color-text-muted: #606060; /* Original --text-light */
+      --color-border: rgba(255, 255, 255, 0.6);
+      
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.03);
+      --shadow-premium: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.08);
+      
+      --font-family: 'Inter', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-family);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--color-bg-desktop);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: var(--color-text-main);
+      overflow-x: hidden;
+    }
+
+    /* DESKTOP BACKGROUND GRAPHICS & TEXT */
+    .desktop-bg-decor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    
+    .desktop-bg-decor::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, rgba(37, 99, 235, 0) 70%);
+      top: -200px;
+      left: -100px;
+      filter: blur(80px);
+    }
+    
+    .desktop-bg-decor::after {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(14, 165, 233, 0.12) 0%, rgba(14, 165, 233, 0) 70%);
+      bottom: -100px;
+      right: -100px;
+      filter: blur(80px);
+    }
+
+    .desktop-info-panel {
+      position: absolute;
+      left: 8%;
+      max-width: 320px;
+      color: #ffffff;
+      z-index: 5;
+      display: none;
+    }
+
+    .desktop-info-panel h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1.2;
+      background: linear-gradient(135deg, #ffffff 40%, #93c5fd 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    .desktop-info-panel p {
+      color: #94a3b8;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .desktop-badge {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 0.5rem 1rem;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #38bdf8;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (min-width: 1024px) {
+      .desktop-info-panel {
+        display: block;
+      }
+    }
+
+    /* PHONE SIMULATOR CONTAINER */
+    .phone-simulator-wrapper {
+      position: relative;
+      z-index: 10;
+      width: 412px;
+      height: 840px;
+      background: #1e293b;
+      border-radius: 50px;
+      padding: 12px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 4px 8px rgba(255, 255, 255, 0.1);
+      border: 4px solid #334155;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* PHONE INNER FRAME */
+    .phone-inner-screen {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background-color: var(--color-phone-screen);
+      border-radius: 40px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    /* PHONE HARDWARE NOTCH & STATUS BAR */
+    .phone-notch {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 28px;
+      background: #1e293b;
+      border-bottom-left-radius: 18px;
+      border-bottom-right-radius: 18px;
+      z-index: 999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .phone-camera {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #0f172a;
+      box-shadow: inset 0 1px 2px rgba(255,255,255,0.2);
+    }
+
+    .phone-status-bar {
+      height: 40px;
+      padding: 0 28px 0 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #0f172a;
+      z-index: 990;
+      background-color: transparent;
+      user-select: none;
+    }
+
+    .phone-status-icons {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .phone-status-icon {
+      width: 16px;
+      height: 16px;
+      fill: #0f172a;
+    }
+
+    /* PHONE BOTTOM HOME BAR */
+    .phone-home-indicator-wrapper {
+      position: absolute;
+      bottom: 4px;
+      left: 0;
+      right: 0;
+      height: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      pointer-events: none;
+    }
+
+    .phone-home-indicator {
+      width: 120px;
+      height: 5px;
+      background-color: #0f172a;
+      border-radius: 10px;
+      opacity: 0.3;
+    }
+
+    /* APP LAYOUT: PAGES/TABS CONTAINER */
+    .app-main-content {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 12px 18px 85px 18px;
+      scrollbar-width: none; /* Hide scrollbars */
+    }
+
+    .app-main-content::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* APP BOTTOM NAVBAR */
+    .bottom-nav {
+      position: absolute;
+      bottom: 14px;
+      left: 16px;
+      right: 16px;
+      width: auto;
+      height: 64px;
+      background: rgba(255, 255, 255, 0.52);
+      backdrop-filter: blur(28px) saturate(160%);
+      -webkit-backdrop-filter: blur(28px) saturate(160%);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 8px;
+      border-radius: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      z-index: 1000;
+      box-shadow: 
+        0 8px 32px rgba(80, 160, 255, 0.15),
+        0 2px 8px rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      text-decoration: none;
+      color: rgba(0, 55, 216, 0.35);
+      position: relative;
+      transition: color 0.25s ease;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+
+    .nav-item .nav-icon-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 30px;
+      border-radius: 20px;
+      transition: background 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .nav-item.active .nav-icon-wrap {
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .nav-item.active {
+      color: #0037D8;
+    }
+
+    .nav-item iconify-icon {
+      font-size: 22px;
+    }
+
+    .nav-item > span {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+
+    /* Red badge for Documentos */
+    .nav-badge {
+      position: absolute;
+      top: 0px;
+      right: 3px;
+      width: 9px;
+      height: 9px;
+      background: #FF3B30;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 6px rgba(255, 59, 48, 0.7);
+      animation: badgePulse 2.2s ease-in-out infinite;
+    }
+
+    @keyframes badgePulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 6px rgba(255, 59, 48, 0.7); }
+      50% { transform: scale(1.2); box-shadow: 0 0 10px rgba(255, 59, 48, 0.9); }
+    }
+
+    /* Nav glow background */
+    .nav-glow {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 280px;
+      height: 140px;
+      background: radial-gradient(ellipse at 50% 100%, rgba(100, 200, 255, 0.18) 0%, rgba(80, 160, 255, 0.08) 50%, transparent 75%);
+      z-index: 999;
+      pointer-events: none;
+      border-radius: 50%;
+      filter: blur(12px);
+    }
+
+    /* Assistant */
+    .ia-assistant {
+      position: absolute;
+      bottom: 100px;
+      right: 20px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+      z-index: 100;
+    }
+
+    .ia-assistant-chat-bubble {
+      background: #333333;
+      color: #ffffff;
+      padding: 10px 16px;
+      border-radius: 18px 4px 18px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(10px) scale(0.9);
+      transform-origin: center right;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .ia-assistant:hover .ia-assistant-chat-bubble,
+    .ia-assistant:active .ia-assistant-chat-bubble {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0) scale(1);
+    }
+
+    .assistant-trigger {
+      width: 70px;
+      height: 70px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .assistant-trigger::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: rgba(53, 141, 86, 0.3);
+      z-index: -1;
+      animation: botPulse 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+    }
+
+    .assistant-trigger img {
+      width: 100%;
+      height: 100%;
+      animation: float 3s ease-in-out infinite;
+      position: relative;
+      z-index: 2;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
+    }
+
+    @keyframes botPulse {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1.6);
+        opacity: 0;
+      }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+
+    /* TAB CONTENTS (HIDDEN BY DEFAULT) */
+    .tab-content {
+      display: none;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .tab-content.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* CARD DESIGN TEMPLATE */
+    .card {
+      background: var(--color-card-bg);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--color-border);
+      margin-bottom: 16px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    /* --- TAB 1: INICIO (REDESIGNED HEALTH-FOCUSED HOME) --- */
+    .home-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      margin-top: 10px;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border: 2px solid white;
+      box-shadow: var(--shadow-md);
+    }
+
+    .user-info h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+    }
+
+    .user-info p {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+    }
+
+    .notification-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: white;
+      border: 1px solid var(--color-border);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .notification-btn::after {
+      content: '';
+      position: absolute;
+      top: 10px;
+      right: 11px;
+      width: 8px;
+      height: 8px;
+      background-color: var(--color-danger);
+      border-radius: 50%;
+      border: 1.5px solid white;
+    }
+
+    .settings-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: white;
+      border: 1px solid var(--color-border);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0, 55, 216, 0.05);
+    }
+
+    .settings-btn:hover {
+      background: #f8fafc;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 55, 216, 0.08);
+    }
+
+    .settings-btn:active {
+      transform: translateY(0);
+    }
+
+    /* NEW PREMIUM GLASS HOME STYLES (Based on Original Prototype) */
+    #tab-inicio {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* Glow circles behind content */
+    .hero-glow-bg {
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(0, 55, 216, 0.15) 0%, transparent 70%);
+      top: 40px;
+      left: -80px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero-glow-circle-1,
+    .hero-glow-circle-2 {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+      animation: pulseGlowCircle 8s ease-in-out infinite alternate;
+    }
+
+    .hero-glow-circle-1 {
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(0, 162, 232, 0.22) 0%, rgba(0, 162, 232, 0) 70%);
+      top: -40px;
+      left: -80px;
+    }
+
+    .hero-glow-circle-2 {
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(0, 55, 216, 0.18) 0%, rgba(0, 55, 216, 0) 70%);
+      top: 300px;
+      right: -80px;
+      animation-delay: -4s;
+    }
+
+    @keyframes pulseGlowCircle {
+      0% {
+        transform: scale(1) translate(0, 0);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(1.15) translate(15px, 10px);
+        opacity: 1;
+      }
+    }
+
+    /* Glass card styles */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 8px 32px rgba(0, 55, 216, 0.03);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    /* Card 1: Tu salud al día */
+    .health-daily-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .health-daily-content {
+      flex: 1;
+      z-index: 2;
+    }
+
+    .health-daily-card h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      margin-bottom: 16px;
+    }
+
+    .health-indicators-row {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .health-indicator-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .health-indicator-icon-wrap {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    
+    .health-indicator-item.docs-ind .health-indicator-icon-wrap {
+      background-color: rgba(0, 55, 216, 0.08);
+      color: var(--color-primary);
+    }
+    .health-indicator-item.vitals-ind .health-indicator-icon-wrap {
+      background-color: rgba(53, 141, 86, 0.08);
+      color: var(--color-success);
+    }
+    .health-indicator-item.alerts-ind .health-indicator-icon-wrap {
+      background-color: #fff7ed;
+      color: #f97316;
+    }
+
+    .health-indicator-item iconify-icon {
+      font-size: 18px;
+    }
+
+    .health-indicator-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .health-indicator-val {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      line-height: 1.2;
+    }
+
+    .health-indicator-label {
+      font-size: 0.72rem;
+      color: var(--color-text-muted);
+      font-weight: 500;
+    }
+
+    .btn-summary-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      background-color: rgba(255, 255, 255, 0.6);
+      color: var(--color-primary);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-summary-link:hover {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-color: rgba(255, 255, 255, 1);
+    }
+
+    .health-daily-visual {
+      width: 100px;
+      height: 100px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+      margin-left: 10px;
+    }
+
+    /* Clipboard SVG illustration */
+    .clipboard-illustration {
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 8px 16px rgba(0, 55, 216, 0.04));
+    }
+
+    /* Card 2: Happ IA */
+    .happ-ia-home-card {
+      position: relative;
+    }
+
+    .happ-ia-top-row {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .ia-robot-wrapper {
+      width: 70px;
+      height: 70px;
+      flex-shrink: 0;
+      animation: float 3.5s ease-in-out infinite;
+    }
+
+    .ia-robot-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .happ-ia-intro {
+      flex: 1;
+    }
+
+    .ia-card-badge {
+      display: inline-block;
+      background-color: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      color: var(--color-primary);
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 100px;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .happ-ia-intro h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      margin-bottom: 4px;
+      line-height: 1.2;
+    }
+
+    .happ-ia-intro p {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      line-height: 1.3;
+    }
+
+    /* Suggestions Horizontal Scroll */
+    .ia-home-suggestions {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      margin-bottom: 16px;
+      padding-bottom: 4px;
+    }
+
+    .ia-home-suggestions::-webkit-scrollbar {
+      display: none;
+    }
+
+    .ia-home-chip {
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 100px;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .ia-home-chip:hover {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-color: var(--color-primary);
+    }
+
+    .ia-home-chip iconify-icon {
+      font-size: 14px;
+      color: var(--color-primary);
+    }
+
+    /* Input Bar */
+    .ia-home-input-bar {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 100px;
+      padding: 6px 6px 6px 16px;
+      gap: 8px;
+      backdrop-filter: blur(5px);
+    }
+
+    .ia-home-input-bar input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 0.78rem;
+      color: var(--color-text-main);
+      background: transparent;
+    }
+
+    .btn-ia-home-send {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: var(--color-primary);
+      border: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .btn-ia-home-send:active {
+      transform: scale(0.9);
+    }
+
+    .btn-ia-home-send iconify-icon {
+      font-size: 14px;
+    }
+
+    /* Shortcut Grid */
+    .shortcuts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .shortcut-card {
+      border-radius: var(--radius-lg);
+      padding: 16px 12px;
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 8px 32px rgba(0, 55, 216, 0.03);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 124px;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .shortcut-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .shortcut-card.docs {
+      border-color: rgba(2, 132, 199, 0.3);
+    }
+    .shortcut-card.health {
+      border-color: rgba(219, 39, 119, 0.3);
+    }
+    .shortcut-card.buy {
+      border-color: rgba(234, 88, 12, 0.3);
+    }
+
+    .shortcut-icon-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    .shortcut-card.docs .shortcut-icon-circle { color: #0284c7; }
+    .shortcut-card.health .shortcut-icon-circle { color: #db2777; }
+    .shortcut-card.buy .shortcut-icon-circle { color: #ea580c; }
+
+    .shortcut-icon-circle iconify-icon {
+      font-size: 18px;
+    }
+
+    .shortcut-info {
+      margin-top: 10px;
+    }
+
+    .shortcut-info h4 {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      margin-bottom: 2px;
+    }
+
+    .shortcut-info p {
+      font-size: 0.65rem;
+      color: var(--color-text-muted);
+      line-height: 1.2;
+    }
+
+    .shortcut-arrow-btn {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .shortcut-arrow-btn iconify-icon {
+      font-size: 10px;
+      color: var(--color-text-muted);
+    }
+
+    /* Actividad Reciente Section */
+    .recent-activity-section {
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .recent-activity-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      margin-top: 4px;
+      padding-left: 2px;
+      padding-right: 2px;
+    }
+
+    .recent-activity-header h3 {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+    }
+
+    .btn-view-all {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .activity-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      padding: 4px 0;
+      text-decoration: none;
+    }
+
+    .activity-item-icon-wrap {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .activity-item.purple-act .activity-item-icon-wrap { background-color: rgba(168, 85, 247, 0.08); color: #a855f7; }
+    .activity-item.blue-act .activity-item-icon-wrap { background-color: rgba(0, 55, 216, 0.08); color: var(--color-primary); }
+    .activity-item.green-act .activity-item-icon-wrap { background-color: rgba(53, 141, 86, 0.08); color: var(--color-success); }
+
+    .activity-item iconify-icon {
+      font-size: 18px;
+    }
+
+    .activity-item-info {
+      flex: 1;
+    }
+
+    .activity-item-info h4 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      margin-bottom: 1px;
+    }
+
+    .activity-item-info p {
+      font-size: 0.7rem;
+      color: var(--color-text-muted);
+    }
+
+    .activity-item-time {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.7rem;
+      color: var(--color-text-muted);
+    }
+
+    .activity-item-time iconify-icon {
+      font-size: 12px;
+    }
+
+    /* Cobertura Banner */
+    .cobertura-banner {
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 8px 32px rgba(0, 55, 216, 0.03);
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+      justify-content: space-between;
+      z-index: 2;
+    }
+
+    .cobertura-banner-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .cobertura-icon-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #3b82f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      box-shadow: 0 4px 10px rgba(59, 130, 246, 0.2);
+    }
+
+    .cobertura-icon-circle iconify-icon {
+      font-size: 20px;
+    }
+
+    .cobertura-banner-text {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #1e3a8a;
+      line-height: 1.35;
+    }
+
+    .btn-cobertura {
+      background: white;
+      border: 1px solid #bfdbfe;
+      padding: 8px 12px;
+      border-radius: 10px;
+      color: #2563eb;
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .btn-cobertura:hover {
+      background-color: #2563eb;
+      color: white;
+      border-color: #2563eb;
+    }
+
+    .congrats-toast {
+      position: absolute;
+      top: 50px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      background: linear-gradient(135deg, var(--color-success) 0%, #059669 100%);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 100px;
+      box-shadow: var(--shadow-lg);
+      font-size: 0.8rem;
+      font-weight: 700;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      pointer-events: none;
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .congrats-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* --- TAB 2: DOCUMENTOS (SIMULATED MEDICAL RECORD) --- */
+    .docs-search {
+      display: flex;
+      background: white;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .docs-search input {
+      border: none;
+      outline: none;
+      background: transparent;
+      width: 100%;
+      font-size: 0.82rem;
+      color: var(--color-text-main);
+    }
+
+    .docs-search svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--color-text-muted);
+    }
+
+    .doc-group-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 16px 0 8px 2px;
+    }
+
+    .doc-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: white;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .doc-card:hover {
+      border-color: var(--color-primary);
+    }
+
+    .doc-icon-wrap {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .doc-card.prescription .doc-icon-wrap { background-color: var(--color-primary-light); }
+    .doc-card.prescription svg { stroke: var(--color-primary); }
+    .doc-card.report .doc-icon-wrap { background-color: var(--color-success-light); }
+    .doc-card.report svg { stroke: var(--color-success); }
+
+    .doc-info {
+      flex: 1;
+    }
+
+    .doc-info h4 {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      margin-bottom: 2px;
+    }
+
+    .doc-info p {
+      font-size: 0.72rem;
+      color: var(--color-text-muted);
+    }
+
+    .doc-action-btn {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      border: 1px solid var(--color-border);
+      background: white;
+    }
+
+    .doc-action-btn svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--color-text-muted);
+    }
+
+    /* --- TAB 3: MI SALUD (HISTORICAL TRENDS & ANTHROPOMETRICS) --- */
+    .health-profile-summary {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--color-secondary-light) 0%, var(--color-primary-light) 100%);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(37, 99, 235, 0.15);
+    }
+
+    .health-avatar-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .health-avatar-circle svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--color-primary);
+    }
+
+    .health-profile-info h3 {
+      font-size: 0.95rem;
+      font-weight: 800;
+    }
+
+    .health-profile-info p {
+      font-size: 0.72rem;
+      color: var(--color-text-muted);
+    }
+
+    .vital-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .vital-stat-box {
+      background: white;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+    }
+
+    .vital-stat-label {
+      font-size: 0.72rem;
+      color: var(--color-text-muted);
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+
+    .vital-stat-value {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+    }
+
+    .vital-stat-status {
+      font-size: 0.68rem;
+      font-weight: 700;
+      display: inline-block;
+      margin-top: 4px;
+      padding: 2px 6px;
+      border-radius: 100px;
+    }
+
+    .vital-stat-status.normal {
+      background-color: var(--color-success-light);
+      color: var(--color-success);
+    }
+
+    /* --- TAB 4: HAPPIA (AI HEALTH ASSISTANT CHAT) --- */
+    .ia-chat-container {
+      display: flex;
+      flex-direction: column;
+      height: 620px;
+      background: white;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .ia-chat-header {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+      color: white;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ia-bot-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .ia-bot-online-indicator {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 8px;
+      height: 8px;
+      background-color: var(--color-success);
+      border-radius: 50%;
+      border: 1.5px solid white;
+    }
+
+    .ia-bot-avatar svg {
+      width: 20px;
+      height: 20px;
+      stroke: white;
+      fill: none;
+    }
+
+    .ia-bot-info h3 {
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .ia-bot-info p {
+      font-size: 0.7rem;
+      opacity: 0.8;
+    }
+
+    .ia-chat-messages {
+      flex: 1;
+      padding: 14px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background-color: #f8fafc;
+    }
+
+    .ia-chat-messages::-webkit-scrollbar {
+      display: none;
+    }
+
+    .chat-bubble {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      font-size: 0.78rem;
+      line-height: 1.4;
+    }
+
+    .chat-bubble.bot {
+      background-color: white;
+      color: var(--color-text-main);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--color-border);
+    }
+
+    .chat-bubble.user {
+      background-color: var(--color-primary);
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.1);
+    }
+
+    .ia-chat-suggestions {
+      padding: 8px 14px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      background-color: #f8fafc;
+      border-top: 1px solid var(--color-border);
+      scrollbar-width: none;
+    }
+    
+    .ia-chat-suggestions::-webkit-scrollbar {
+      display: none;
+    }
+
+    .chat-suggestion-chip {
+      padding: 6px 12px;
+      border-radius: 100px;
+      background: white;
+      border: 1px solid var(--color-border);
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .chat-suggestion-chip:hover {
+      background-color: var(--color-primary-light);
+      border-color: var(--color-primary);
+    }
+
+    .ia-chat-input-area {
+      padding: 12px 14px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      border-top: 1px solid var(--color-border);
+      background: white;
+    }
+
+    .ia-chat-input-area input {
+      flex: 1;
+      border: 1px solid var(--color-border);
+      border-radius: 100px;
+      padding: 10px 16px;
+      font-size: 0.78rem;
+      outline: none;
+      background-color: #f8fafc;
+    }
+
+    .ia-chat-input-area input:focus {
+      border-color: var(--color-primary);
+      background-color: white;
+    }
+
+    .chat-send-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: var(--color-primary);
+      border: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      color: white;
+      transition: all 0.2s;
+    }
+
+    .chat-send-btn:active {
+      transform: scale(0.9);
+    }
+
+    .chat-send-btn svg {
+      width: 16px;
+      height: 16px;
+      stroke: white;
+      fill: none;
+    }
+
+    /* UPLOAD MODAL POPUP */
+    .modal-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(15, 23, 42, 0.4);
+      backdrop-filter: blur(4px);
+      z-index: 1001;
+      display: none;
+      justify-content: center;
+      align-items: flex-end;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .modal-content {
+      width: 100%;
+      background-color: white;
+      border-top-left-radius: var(--radius-lg);
+      border-top-right-radius: var(--radius-lg);
+      padding: 24px 20px;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .modal-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-header h3 {
+      font-size: 1rem;
+      font-weight: 800;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .modal-close svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--color-text-muted);
+    }
+
+    .upload-drag-area {
+      border: 2px dashed var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 30px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .upload-drag-area:hover {
+      border-color: var(--color-primary);
+      background-color: var(--color-primary-light);
+    }
+
+    .upload-drag-area svg {
+      width: 36px;
+      height: 36px;
+      stroke: var(--color-primary);
+      margin-bottom: 12px;
+    }
+
+    .upload-drag-area p {
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .upload-drag-area span {
+      font-size: 0.7rem;
+      color: var(--color-text-muted);
+    }
+
+    .input-file-hidden {
+      display: none;
+    }
+
+    .btn-submit-modal {
+      width: 100%;
+      padding: 12px;
+      border-radius: var(--radius-md);
+      background-color: var(--color-primary);
+      color: white;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border: none;
+      margin-top: 16px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-submit-modal:active {
+      transform: scale(0.98);
+    }
+
+    /* TELECONSULTATION SCHEDULER VIEW */
+    .schedule-success-anim {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .success-check-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--color-success-light);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--color-success);
+      margin-bottom: 16px;
+    }
+
+    .success-check-circle svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--color-success);
+      stroke-width: 3;
+    }
+
+    /* Health Summary Horizontal Layout */
+    .health-summary-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+    }
+    
+    .health-summary-col {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .health-summary-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    
+    .health-summary-icon.peso {
+      background-color: rgba(53, 141, 86, 0.08);
+      color: var(--color-success);
+    }
+    
+    .health-summary-icon.presion {
+      background-color: rgba(0, 55, 216, 0.08);
+      color: var(--color-primary);
+    }
+    
+    .health-summary-icon.glucosa {
+      background-color: rgba(124, 58, 237, 0.08);
+      color: #7c3aed;
+    }
+    
+    .health-summary-info {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.25;
+    }
+    
+    .health-summary-label {
+      font-size: 0.65rem;
+      color: var(--color-text-muted);
+      font-weight: 600;
+    }
+    
+    .health-summary-value {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+    }
+    
+    .health-summary-status {
+      font-size: 0.65rem;
+      font-weight: 700;
+    }
+    
+    .health-summary-status.success {
+      color: var(--color-success);
+      display: inline-flex;
+      align-items: center;
+      gap: 1px;
+    }
+    
+    .health-summary-sep {
+      width: 1px;
+      height: 32px;
+      background-color: rgba(0, 55, 216, 0.08);
+      flex-shrink: 0;
+    }
+
+    /* Estado General Section */
+    .estado-general-container {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    /* Health Progress Bar */
+    .health-progress-wrap {
+      margin-top: 10px;
+    }
+
+    .health-progress-header {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .health-progress-pct {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--color-primary);
+      line-height: 1;
+    }
+
+    .health-progress-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+    }
+
+    .health-progress-track {
+      width: 100%;
+      height: 7px;
+      background: rgba(0, 55, 216, 0.08);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .health-progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 100px;
+      background: linear-gradient(90deg, #5175ff 0%, #38bdf8 100%);
+      animation: fillBar 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+      box-shadow: 0 0 8px rgba(81, 117, 255, 0.45);
+    }
+
+    @keyframes fillBar {
+      from { width: 0%; }
+      to   { width: 70%; }
+    }
+    
+    .estado-general-visual {
+      position: relative;
+      width: 90px;
+      height: 90px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .estado-general-img {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+      transform: rotate(-8deg);
+      animation: floatTilt 4s ease-in-out infinite;
+      filter: drop-shadow(0 8px 18px rgba(0, 55, 216, 0.12));
+    }
+    
+    @keyframes floatTilt {
+      0%   { transform: rotate(-8deg) translateY(0px); }
+      50%  { transform: rotate(-5deg) translateY(-6px); }
+      100% { transform: rotate(-8deg) translateY(0px); }
+    }
+    
+    .estado-general-status-list {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    
+    .estado-general-item {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--color-text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .estado-general-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    
+    .estado-general-dot.ok { background-color: var(--color-success); }
+    .estado-general-dot.warn { background-color: var(--color-warning); }
+
+    /* Insights IA */
+    .insights-ia-card {
+      position: relative;
+      overflow: hidden;
+      border: none !important;
+      background: transparent !important;
+      box-shadow: 0 8px 32px rgba(0, 55, 216, 0.03) !important;
+    }
+    
+    .insights-ia-card::before {
+      content: '';
+      position: absolute;
+      top: -150%;
+      left: -150%;
+      width: 400%;
+      height: 400%;
+      background: conic-gradient(from 0deg, #5175ff, #8ae3c9, #5175ff);
+      z-index: -2;
+      animation: rotate-border 6s linear infinite;
+    }
+    
+    .insights-ia-card::after {
+      content: '';
+      position: absolute;
+      inset: 1px;
+      background: rgba(244, 247, 253, 0.92);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border-radius: 11px;
+      z-index: -1;
+    }
+    
+    @keyframes rotate-border {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    
+    .insights-ia-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    
+    .insights-ia-item {
+      display: flex;
+      gap: 10px;
+      font-size: 0.76rem;
+      line-height: 1.35;
+      color: var(--color-text-main);
+      font-weight: 500;
+    }
+    
+    .insights-ia-item span {
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+
+    /* Evolución de Indicadores Sparkline selection */
+    .indicadores-evolucion-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    
+    .indicador-evo-btn {
+      background: rgba(255, 255, 255, 0.55);
+      border: 1.5px solid rgba(255, 255, 255, 0.8);
+      border-radius: var(--radius-md);
+      padding: 9px 11px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+      text-align: left;
+      outline: none;
+    }
+    
+    .indicador-evo-btn:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 4px 12px rgba(81, 117, 255, 0.12);
+    }
+    
+    .indicador-evo-btn.active {
+      background: linear-gradient(135deg, #5175ff 0%, #38bdf8 100%);
+      border-color: transparent;
+      box-shadow: 0 6px 18px rgba(81, 117, 255, 0.35);
+      transform: translateY(-1px);
+    }
+    
+    .indicador-evo-btn.active .indicador-evo-name {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .indicador-evo-btn.active .indicador-evo-val {
+      color: #ffffff;
+    }
+
+    .indicador-evo-btn.active .indicador-evo-trend {
+      color: rgba(255, 255, 255, 0.9) !important;
+    }
+    
+    .indicador-evo-info {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .indicador-evo-name {
+      font-size: 0.68rem;
+      color: var(--color-text-muted);
+      font-weight: 600;
+    }
+    
+    .indicador-evo-val {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      margin-top: 1px;
+    }
+    
+    .indicador-evo-trend {
+      font-size: 0.85rem;
+    }
+
+    /* Sugerencias para hoy — Card Carousel */
+    .sugerencias-carousel {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+      scrollbar-width: none;
+    }
+    .sugerencias-carousel::-webkit-scrollbar { display: none; }
+
+    .sugerencia-card {
+      flex: 0 0 160px;
+      scroll-snap-align: start;
+      border-radius: 16px;
+      padding: 18px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      cursor: pointer;
+      transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  box-shadow 0.22s ease;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      min-height: 140px;
+    }
+
+    .sugerencia-card:active {
+      transform: scale(0.97);
+    }
+
+    .sugerencia-card::before {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+    }
+
+    .sugerencia-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .sugerencia-card-body {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .sugerencia-card-title {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.3;
+    }
+
+    .sugerencia-card-arrow {
+      align-self: flex-end;
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+      margin-top: auto;
+    }
+    
+    .sugerencia-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(0, 55, 216, 0.06);
+      color: var(--color-primary);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    
+    .sugerencia-text {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+    }
+
+    /* Sugerencias Full Card Style */
+    .sugerencias-cards-col {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .sugerencia-full-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.55);
+      border: 1.5px solid rgba(255, 255, 255, 0.75);
+      border-radius: var(--radius-lg);
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1),
+                  box-shadow 0.2s ease,
+                  background 0.2s ease;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 16px rgba(0, 55, 216, 0.04);
+      text-decoration: none;
+    }
+
+    .sugerencia-full-card:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 8px 24px rgba(0, 55, 216, 0.09);
+    }
+
+    .sugerencia-full-card:active {
+      transform: scale(0.98);
+    }
+
+    .sug-icon-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+
+    .sug-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .sug-title {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      line-height: 1.2;
+    }
+
+    .sug-subtitle {
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+    }
+
+    .sug-arrow {
+      font-size: 16px;
+      color: #cbd5e1;
+      flex-shrink: 0;
+    }
+
+    /* Ahorro Meds Box */
+    .ahorro-meds-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    /* Historial Reciente — New Card Style */
+    .historial-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .historial-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.55);
+      border: 1.5px solid rgba(255, 255, 255, 0.75);
+      border-radius: var(--radius-lg);
+      padding: 14px 14px;
+      cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  box-shadow 0.2s ease,
+                  background 0.2s ease;
+      position: relative;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 16px rgba(0, 55, 216, 0.04);
+    }
+
+    .historial-card:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 8px 24px rgba(0, 55, 216, 0.09);
+    }
+
+    .historial-icon-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .historial-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .historial-title {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 3px;
+    }
+
+    .historial-meta {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .historial-badge {
+      font-size: 0.6rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+
+    .historial-badge.examen  { background: #e0f2fe; color: #0369a1; }
+    .historial-badge.receta  { background: #dcfce7; color: #15803d; }
+    .historial-badge.consulta { background: #ede9fe; color: #6d28d9; }
+    .historial-badge.cotizacion { background: #fef3c7; color: #b45309; }
+
+    .historial-status {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+    }
+
+    .historial-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: #cbd5e1;
+      flex-shrink: 0;
+    }
+
+    .historial-time {
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: #94a3b8;
+    }
+
+    .historial-menu {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+      font-size: 18px;
+      flex-shrink: 0;
+      padding: 2px;
+    }
+
+    .historial-nuevo {
+      position: absolute;
+      top: 10px;
+      right: 40px;
+      font-size: 0.58rem;
+      font-weight: 800;
+      background: #22c55e;
+      color: white;
+      padding: 2px 7px;
+      border-radius: 20px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+    
+    .ahorro-meds-info {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.35;
+    }
+    
+    .ahorro-meds-label {
+      font-size: 0.7rem;
+      color: var(--color-text-muted);
+      font-weight: 600;
+    }
+    
+    .ahorro-meds-value {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--color-success);
+    }
+
+    /* Grid Accesos Rápidos */
+    .grid-accesos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .acceso-rapido-card {
+      background: rgba(255, 255, 255, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    
+    .acceso-rapido-card:hover {
+      background: rgba(255, 255, 255, 0.75);
+      transform: translateY(-1px);
+    }
+    
+    .acceso-icon-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      flex-shrink: 0;
+    }
+    
+    .acceso-text-label {
+      font-size: 0.76rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- DESKTOP DECORATION & INFO -->
+  <div class="desktop-bg-decor"></div>
+
+
+  <!-- PHONE SIMULATOR -->
+  <div class="phone-simulator-wrapper">
+    <div class="phone-inner-screen">
+      
+      <!-- NOTCH & STATUS BAR -->
+      <div class="phone-notch">
+        <div class="phone-camera"></div>
+      </div>
+
+      <div class="phone-status-bar">
+        <span id="phone-clock">09:41</span>
+        <div class="phone-status-icons">
+          <!-- Signal Icon -->
+          <svg class="phone-status-icon" viewBox="0 0 24 24"><path d="M2 22h20V2z"/></svg>
+          <!-- Wifi Icon -->
+          <svg class="phone-status-icon" viewBox="0 0 24 24"><path d="M12 21a2 2 0 0 1-2-2h4a2 2 0 0 1-2 2zm0-4a6 6 0 0 1-6-6 1 1 0 0 1 1-1h10a1 1 0 0 1 1 1 6 6 0 0 1-6 6zm0-8a10 10 0 0 1-10-10 1 1 0 0 1 1-1h18a1 1 0 0 1 1 1 10 10 0 0 1-10 10z" style="display:none;"/><path d="M12 3a9 9 0 0 1 9 9h2A11 11 0 0 0 12 1a11 11 0 0 0-11 11h2a9 9 0 0 1 9-9zm0 4a5 5 0 0 1 5 5h2a7 7 0 0 0-7-7a7 7 0 0 0-7 7h2a5 5 0 0 1 5-5zm0 4a1 1 0 0 1 1 1h2a3 3 0 0 0-3-3a3 3 0 0 0-3 3h2a1 1 0 0 1 1-1z"/></svg>
+          <!-- Battery Icon -->
+          <svg class="phone-status-icon" viewBox="0 0 24 24"><path d="M17 5H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm1 9h-1V9h1v5zm3-3V9h1v4h-1z" style="display:none;"/><path d="M16 4H3a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h13a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm1 11a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h13a1 1 0 0 1 1 1v8zm3-6h2v6h-2V9z"/></svg>
+        </div>
+      </div>
+
+      <!-- CELEBRATION TOAST -->
+      <div id="congrats-toast" class="congrats-toast">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <span>¡Desafío completado! +50 XP</span>
+      </div>
+
+      <!-- MAIN SCROLLABLE APP VIEW -->
+      <div class="app-main-content">
+        
+        <!-- ================= TAB 1: INICIO (HOME REDESIGN) ================= -->
+        <div id="tab-inicio" class="tab-content active">
+          <div class="hero-glow-bg"></div>
+          <div class="hero-glow-circle-1"></div>
+          <div class="hero-glow-circle-2"></div>
+          
+          <!-- User Profile & Settings -->
+          <div class="home-header">
+            <div class="user-profile">
+              <div class="user-avatar" style="font-weight: 700; background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);">M</div>
+              <div class="user-info">
+                <h2>Hola Maria 👋</h2>
+                <p>Tu salud está bajo control con Happ</p>
+              </div>
+            </div>
+            <div class="settings-btn" onclick="alert('Abriendo configuración de tu cuenta...')">
+              <iconify-icon icon="solar:settings-bold" style="font-size: 20px; color: var(--color-primary);"></iconify-icon>
+            </div>
+          </div>
+
+          <!-- Section 1: Estado General -->
+          <div class="glass-card" style="margin-bottom: 16px;">
+            <div style="font-size: 0.9rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 12px;">Estado General</div>
+            <div class="estado-general-container">
+              <div class="estado-general-visual">
+                <img class="estado-general-img" src="estado_general_img.png" alt="Estado General">
+              </div>
+              <div class="estado-general-status-list">
+                <div class="estado-general-item">
+                  <span class="estado-general-dot ok"></span>
+                  Encuesta: Completa
+                </div>
+                <div class="estado-general-item">
+                  <span class="estado-general-dot ok"></span>
+                  Primer examen: Completo
+                </div>
+                <div class="estado-general-item">
+                  <span class="estado-general-dot ok"></span>
+                  Plan de salud: Completo
+                </div>
+                <div class="estado-general-item">
+                  <span class="estado-general-dot warn"></span>
+                  Primera receta: Pendiente
+                </div>
+              </div>
+            </div>
+            <!-- Health Progress Bar -->
+            <div class="health-progress-wrap">
+              <div class="health-progress-track">
+                <div class="health-progress-fill"></div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <!-- Section 3: Evolución de Indicadores -->
+          <div class="glass-card" style="margin-bottom: 16px; background: linear-gradient(145deg, #e8f4fd 0%, #dbeafe 50%, #e0f2fe 100%) !important; border: 1.5px solid rgba(147, 197, 253, 0.5) !important; box-shadow: 0 8px 32px rgba(56, 189, 248, 0.08) !important;">
+            <div style="font-size: 0.9rem; font-weight: 800; color: #1e40af; margin-bottom: 12px;">Evolución de indicadores</div>
+            
+            <div class="indicadores-evolucion-row">
+              <button id="evo-btn-presion" class="indicador-evo-btn active" onclick="changeEvoIndicator('presion', this)">
+                <div class="indicador-evo-info">
+                  <span class="indicador-evo-name">Presión</span>
+                  <span class="indicador-evo-val">120/80</span>
+                </div>
+                <iconify-icon icon="solar:arrow-down-bold" class="indicador-evo-trend" style="color: var(--color-danger); font-size: 14px;"></iconify-icon>
+              </button>
+              <button id="evo-btn-glucosa" class="indicador-evo-btn" onclick="changeEvoIndicator('glucosa', this)">
+                <div class="indicador-evo-info">
+                  <span class="indicador-evo-name">Glucosa</span>
+                  <span class="indicador-evo-val">98 mg/dl</span>
+                </div>
+                <iconify-icon icon="solar:arrow-right-bold" class="indicador-evo-trend" style="color: var(--color-success); font-size: 14px;"></iconify-icon>
+              </button>
+              <button id="evo-btn-colesterol" class="indicador-evo-btn" onclick="changeEvoIndicator('colesterol', this)">
+                <div class="indicador-evo-info">
+                  <span class="indicador-evo-name">Colesterol</span>
+                  <span class="indicador-evo-val">185 mg/dl</span>
+                </div>
+                <iconify-icon icon="solar:arrow-right-bold" class="indicador-evo-trend" style="color: var(--color-success); font-size: 14px;"></iconify-icon>
+              </button>
+              <button id="evo-btn-peso" class="indicador-evo-btn" onclick="changeEvoIndicator('peso', this)">
+                <div class="indicador-evo-info">
+                  <span class="indicador-evo-name">Peso</span>
+                  <span class="indicador-evo-val">72 kg</span>
+                </div>
+                <iconify-icon icon="solar:arrow-up-bold" class="indicador-evo-trend" style="color: var(--color-success); font-size: 14px;"></iconify-icon>
+              </button>
+            </div>
+            
+            <!-- Simple Sparkline Canvas -->
+            <div style="background: rgba(255,255,255,0.25); border-radius: var(--radius-md); padding: 12px; margin-top: 10px; height: 110px;">
+              <canvas id="metricsChart" style="width: 100%; height: 100%; display: block;"></canvas>
+            </div>
+          </div>
+
+          <!-- Section 4: Sugerencias para hoy -->
+          <div style="font-size: 0.9rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 12px; margin-top: 4px; padding-left: 2px;">Sugerencias para hoy</div>
+          <div class="sugerencias-cards-col">
+
+            <!-- Card 1: Subir examen -->
+            <div class="sugerencia-full-card" onclick="openModal('upload')">
+              <div class="sug-icon-circle" style="background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);">
+                <iconify-icon icon="solar:document-text-bold" style="color: #059669;"></iconify-icon>
+              </div>
+              <div class="sug-body">
+                <span class="sug-title">Subir tu último examen de laboratorio</span>
+              </div>
+              <iconify-icon icon="solar:alt-arrow-right-linear" class="sug-arrow"></iconify-icon>
+            </div>
+
+            <!-- Card 2: Completar antecedentes -->
+            <div class="sugerencia-full-card" onclick="alert('Abriendo ficha de Antecedentes Médicos...')">
+              <div class="sug-icon-circle" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);">
+                <iconify-icon icon="solar:user-id-bold" style="color: #2563eb;"></iconify-icon>
+              </div>
+              <div class="sug-body">
+                <span class="sug-title">Completar antecedentes médicos</span>
+              </div>
+              <iconify-icon icon="solar:alt-arrow-right-linear" class="sug-arrow"></iconify-icon>
+            </div>
+
+            <!-- Card 3: Consultar cobertura -->
+            <div class="sugerencia-full-card" onclick="alert('Consulta de cobertura con happIA: Próximamente disponible.')">
+              <div class="sug-icon-circle" style="background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);">
+                <iconify-icon icon="solar:shield-keyhole-bold" style="color: #7c3aed;"></iconify-icon>
+              </div>
+              <div class="sug-body">
+                <span class="sug-title">Consultar sobre tu cobertura</span>
+              </div>
+              <iconify-icon icon="solar:alt-arrow-right-linear" class="sug-arrow"></iconify-icon>
+            </div>
+
+          </div>
+
+          <!-- Section 5: Ahorro en Medicamentos -->
+          <div class="glass-card" style="
+            background:
+              radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.10) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 50%),
+              radial-gradient(ellipse at 60% 90%, rgba(0,0,0,0.08) 0%, transparent 50%),
+              linear-gradient(135deg, #4aab72 0%, #358d56 45%, #256b3f 100%);
+            border: none;
+            box-shadow: 0 12px 30px rgba(21, 128, 61, 0.25), inset 0 1px 0 rgba(255,255,255,0.15);
+            padding: 20px 16px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+          ">
+            <!-- Texture overlay: dot grid -->
+            <div style="position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.12) 1px, transparent 1px); background-size: 14px 14px; z-index: 1; pointer-events: none;"></div>
+            <!-- Decorative ring -->
+            <div style="position: absolute; right: 60px; top: -30px; width: 120px; height: 120px; border-radius: 50%; border: 22px solid rgba(255,255,255,0.07); z-index: 1; pointer-events: none;"></div>
+            <!-- Left side text -->
+            <div style="display: flex; flex-direction: column; gap: 5px; z-index: 2; line-height: 1.35;">
+              <span style="font-size: 0.68rem; font-weight: 700; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 0.8px;">Happ Compara por ti</span>
+              <div style="display: flex; flex-direction: column; font-size: 1rem; font-weight: 800; color: white; margin-top: 2px; line-height: 1.3;">
+                <span>Has ahorrado $84.650 CLP</span>
+                <span>con Happ</span>
+              </div>
+            </div>
+            <!-- Right side image piggy_icon.png -->
+            <div style="width: 80px; height: 80px; display: flex; justify-content: center; align-items: center; z-index: 2; flex-shrink: 0; margin-left: 8px;">
+              <img src="piggy_icon.png" alt="Ahorro" style="width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.18));">
+            </div>
+          </div>
+
+          <!-- Section 6: Historial Reciente -->
+          <div class="recent-activity-section" style="margin-bottom: 16px;">
+            <div class="recent-activity-header">
+              <h3>Tu historial reciente</h3>
+              <a href="#" class="btn-view-all" onclick="alert('Redirigiendo a historial...'); return false;">Ver todo</a>
+            </div>
+
+            <div class="historial-list">
+
+              <!-- Item 1: Examen -->
+              <div class="historial-card" onclick="alert('Detalle del examen de sangre: Próximamente disponible.')">
+                <div class="historial-icon-box" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);">
+                  <iconify-icon icon="solar:test-tube-minimalistic-bold-duotone" style="color: #2563eb;"></iconify-icon>
+                </div>
+                <div class="historial-body">
+                  <div class="historial-title">Examen de sangre analizado</div>
+                  <div class="historial-meta">
+                    <span class="historial-badge examen">Examen</span>
+                    <span class="historial-dot"></span>
+                    <span class="historial-time">Hace 1 día</span>
+                  </div>
+                </div>
+                <iconify-icon icon="solar:menu-dots-bold" class="historial-menu"></iconify-icon>
+              </div>
+
+              <!-- Item 2: Receta -->
+              <div class="historial-card" onclick="alert('Detalle de la receta médica: Próximamente disponible.')">
+                <div class="historial-icon-box" style="background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);">
+                  <iconify-icon icon="solar:document-text-bold-duotone" style="color: #059669;"></iconify-icon>
+                </div>
+                <div class="historial-body">
+                  <div class="historial-title">Nueva receta agregada</div>
+                  <div class="historial-meta">
+                    <span class="historial-badge receta">Receta</span>
+                    <span class="historial-dot"></span>
+                    <span class="historial-status">Omeprazol 20mg</span>
+                    <span class="historial-dot"></span>
+                    <span class="historial-time">Hace 3 días</span>
+                  </div>
+                </div>
+                <iconify-icon icon="solar:menu-dots-bold" class="historial-menu"></iconify-icon>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Virtual Assistant (Floating robot) -->
+      <div class="ia-assistant" style="cursor: pointer;" onclick="alert('¡Hola! Soy happIA, tu asistente de salud. Muy pronto podré responder tus dudas aquí.'); return false;">
+        <div class="ia-assistant-chat-bubble">Soy happIA ¿Te ayudo?</div>
+        <div class="assistant-trigger">
+          <img src="robot.png" alt="Happ IA">
+        </div>
+      </div>
+
+      <!-- Nav glow background -->
+      <div class="nav-glow"></div>
+
+      <!-- Bottom Navigation -->
+      <nav class="bottom-nav">
+        <div class="nav-menu-links" style="display: flex; justify-content: space-around; width: 100%; align-items: center;">
+          <a href="#" class="nav-item active" id="nav-home" onclick="switchTab('inicio', this); return false;">
+            <div class="nav-icon-wrap">
+              <iconify-icon icon="solar:home-2-bold-duotone"></iconify-icon>
+            </div>
+            <span>Inicio</span>
+          </a>
+          <a href="#" class="nav-item" id="nav-docs" onclick="switchTab('documentos', this); return false;">
+            <div class="nav-icon-wrap">
+              <iconify-icon icon="solar:document-bold-duotone"></iconify-icon>
+              <span class="nav-badge"></span>
+            </div>
+            <span>Documentos</span>
+          </a>
+          <a href="#" class="nav-item" id="nav-health" onclick="switchTab('misalud', this); return false;">
+            <div class="nav-icon-wrap">
+              <iconify-icon icon="solar:heart-pulse-bold-duotone"></iconify-icon>
+            </div>
+            <span>Mi Salud</span>
+          </a>
+          <a href="#" class="nav-item" id="nav-ai" onclick="switchTab('happia', this); return false;">
+            <div class="nav-icon-wrap">
+              <iconify-icon icon="solar:magic-stick-3-bold-duotone"></iconify-icon>
+            </div>
+            <span>Happ IA</span>
+          </a>
+        </div>
+      </nav>
+
+      <div class="phone-home-indicator-wrapper">
+        <div class="phone-home-indicator"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- UPLOAD MODAL -->
+  <div id="modal-upload" class="modal-overlay" onclick="closeModalOnOverlay(event)">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Subir Documento Médico</h3>
+        <button class="modal-close" onclick="closeModal('upload')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="upload-drag-area" onclick="document.getElementById('file-upload-input').click()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <p>Seleccionar o Arrastrar Archivo</p>
+        <span>PDF, JPG, PNG (máx. 10MB)</span>
+        <input type="file" id="file-upload-input" class="input-file-hidden" onchange="handleFileUpload(event)">
+      </div>
+      <button class="btn-submit-modal" onclick="submitDocUpload()">
+        Confirmar Carga
+      </button>
+    </div>
+  </div>
+
+  <!-- TELECONSULTATION SCHEDULER MODAL -->
+  <div id="modal-schedule" class="modal-overlay" onclick="closeModalOnOverlay(event)">
+    <div class="modal-content" style="max-height: 480px;">
+      <div class="modal-header">
+        <h3>Agendar Teleconsulta</h3>
+        <button class="modal-close" onclick="closeModal('schedule')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      
+      <div id="scheduler-form">
+        <p style="font-size:0.78rem; color:var(--color-text-muted); margin-bottom:14px;">Elige especialidad médica y horario disponible:</p>
+        
+        <div style="margin-bottom:12px;">
+          <label style="display:block; font-size:0.75rem; font-weight:700; margin-bottom:4px;">Especialidad</label>
+          <select id="schedule-specialty" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--color-border); font-size:0.8rem; background:white;">
+            <option>Medicina General / Geriatría (Dr. Díaz)</option>
+            <option>Cardiología (Dra. Martínez)</option>
+            <option>Nutriología Clínica (Dra. Ramos)</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom:16px;">
+          <label style="display:block; font-size:0.75rem; font-weight:700; margin-bottom:4px;">Fecha y Hora Disponibles</label>
+          <select id="schedule-time" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--color-border); font-size:0.8rem; background:white;">
+            <option>Mañana, Miércoles 24 Jun - 10:15 AM</option>
+            <option>Jueves 25 Jun - 09:30 AM</option>
+            <option>Viernes 26 Jun - 16:00 PM</option>
+          </select>
+        </div>
+
+        <button class="btn-submit-modal" onclick="confirmSchedule()">
+          Agendar Consulta Médica
+        </button>
+      </div>
+
+      <div id="scheduler-success" class="schedule-success-anim" style="display:none;">
+        <div class="success-check-circle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h4 style="font-size:0.95rem; font-weight:800; margin-bottom:6px;">¡Teleconsulta Agendada!</h4>
+        <p style="font-size:0.78rem; color:var(--color-text-muted); line-height:1.4;">Se ha reservado tu cita para mañana a las 10:15 AM. Recibirás un SMS de recordatorio con el enlace de conexión.</p>
+        <button class="btn-submit-modal" onclick="closeModal('schedule')">Listo</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Update live clock simulation
+    function updateClock() {
+      const clockEl = document.getElementById('phone-clock');
+      const now = new Date();
+      let hours = now.getHours();
+      let minutes = now.getMinutes();
+      hours = hours < 10 ? '0' + hours : hours;
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      clockEl.textContent = `${hours}:${minutes}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // TAB CONTROLLER
+    function switchTab(tabId, el) {
+      if (tabId !== 'inicio') {
+        alert('Esta sección estará disponible próximamente.');
+        return;
+      }
+      // Hide all tabs
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      // Deactivate all nav items
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      
+      // Show targeted tab
+      const targetTab = document.getElementById(`tab-${tabId}`);
+      if (targetTab) {
+        targetTab.classList.add('active');
+        
+        // If tab is Mi Salud or Inicio, redraw the charts to avoid sizing bugs
+        if (tabId === 'inicio') {
+          setTimeout(drawChart, 50);
+        }
+      }
+
+      // Mark clicked item active (or matching nav item if triggered externally)
+      if (el) {
+        el.classList.add('active');
+      } else {
+        if (tabId === 'inicio') document.getElementById('nav-home').classList.add('active');
+        if (tabId === 'documentos') document.getElementById('nav-docs').classList.add('active');
+        if (tabId === 'misalud') document.getElementById('nav-health').classList.add('active');
+        if (tabId === 'happia') document.getElementById('nav-ai').classList.add('active');
+      }
+    }
+
+    // WATER TRACKER STATE
+    let waterLitres = 1.5;
+    function addWater() {
+      if (waterLitres < 3.0) {
+        waterLitres += 0.25;
+        if (waterLitres > 2.0 && document.querySelectorAll('.challenge-item')[1].classList.contains('completed') === false) {
+          // If water goal met, mark challenge completed
+          const waterChallenge = document.querySelectorAll('.challenge-item')[1];
+          toggleChallenge(waterChallenge, 1, 30, true);
+        }
+        
+        // Update display UI
+        document.getElementById('metrics-water-val').textContent = waterLitres.toFixed(2);
+        const percent = Math.min(100, (waterLitres / 2.0) * 100);
+        document.getElementById('metrics-water-bar').style.width = `${percent}%`;
+        
+        // Soft button click feedback
+        const btn = document.getElementById('btn-add-water');
+        btn.style.transform = 'scale(1.2)';
+        setTimeout(() => btn.style.transform = 'scale(1)', 150);
+      }
+    }
+
+    // CHALLENGES PROGRESS STATE
+    let points = 150;
+    let challengeStates = [true, true, true, false]; // indices representing each challenge completed state
+    
+    function toggleChallenge(element, index, xpReward, forceComplete = false) {
+      let isCompleted = element.classList.contains('completed');
+      
+      if (forceComplete) {
+        if (isCompleted) return;
+        isCompleted = false;
+      }
+      
+      if (isCompleted) {
+        element.classList.remove('completed');
+        challengeStates[index] = false;
+        points -= xpReward;
+      } else {
+        element.classList.add('completed');
+        challengeStates[index] = true;
+        points += xpReward;
+        showCongratsToast(`+${xpReward} XP ganado!`);
+      }
+      
+      // Update points display
+      document.getElementById('user-points').textContent = `${points} XP`;
+      
+      // Recalculate daily progress percentage
+      const completedCount = challengeStates.filter(Boolean).length;
+      const totalCount = challengeStates.length;
+      const progressPercent = Math.round((completedCount / totalCount) * 100);
+      
+      // Animate progress elements
+      document.getElementById('challenge-percent-text').textContent = `${progressPercent}%`;
+      document.getElementById('challenge-progress-fill').style.width = `${progressPercent}%`;
+    }
+
+    function showCongratsToast(text) {
+      const toast = document.getElementById('congrats-toast');
+      toast.querySelector('span').textContent = text;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    // IA ADVICE TICKER ROTATION
+    const advices = [
+      "Consejo happIA: Una caminata corta después de almorzar reduce el pico de glucosa.",
+      "Consejo happIA: Tu frecuencia en reposo es excelente. Mantén el ritmo aeróbico.",
+      "Consejo happIA: Medir tu presión arterial al levantarte da el registro clínico más limpio.",
+      "Consejo happIA: Beber agua a temperatura templada favorece tu digestión matutina."
+    ];
+    let adviceIndex = 0;
+    setInterval(() => {
+      adviceIndex = (adviceIndex + 1) % advices.length;
+      const ticker = document.getElementById('ia-advice-ticker');
+      ticker.style.opacity = 0;
+      setTimeout(() => {
+        ticker.textContent = `"${advices[adviceIndex]}"`;
+        ticker.style.opacity = 1;
+      }, 300);
+    }, 8000);
+
+    // MODAL WINDOW CONTROLLER
+    function openModal(modalType) {
+      document.getElementById(`modal-${modalType}`).style.display = 'flex';
+      setTimeout(() => {
+        document.getElementById(`modal-${modalType}`).classList.add('active');
+      }, 10);
+    }
+
+    function closeModal(modalType) {
+      const modal = document.getElementById(`modal-${modalType}`);
+      modal.classList.remove('active');
+      setTimeout(() => {
+        modal.style.display = 'none';
+        
+        // Reset forms inside if any
+        if (modalType === 'schedule') {
+          document.getElementById('scheduler-form').style.display = 'block';
+          document.getElementById('scheduler-success').style.display = 'none';
+        }
+      }, 300);
+    }
+
+    function closeModalOnOverlay(e) {
+      if (e.target.classList.contains('modal-overlay')) {
+        const id = e.target.id.replace('modal-', '');
+        closeModal(id);
+      }
+    }
+
+    // Document upload simulation
+    function handleFileUpload(e) {
+      const file = e.target.files[0];
+      if (file) {
+        document.querySelector('.upload-drag-area p').textContent = `Seleccionado: ${file.name}`;
+        document.querySelector('.upload-drag-area span').textContent = `${(file.size / 1024 / 1024).toFixed(2)} MB - Listo para subir`;
+      }
+    }
+
+    function submitDocUpload() {
+      const areaText = document.querySelector('.upload-drag-area p').textContent;
+      if (areaText.includes('Seleccionado:')) {
+        alert('¡Documento cargado con éxito! Se indexará con IA en tu expediente.');
+        closeModal('upload');
+        // Reset file input area text
+        document.querySelector('.upload-drag-area p').textContent = 'Seleccionar o Arrastrar Archivo';
+        document.querySelector('.upload-drag-area span').textContent = 'PDF, JPG, PNG (máx. 10MB)';
+      } else {
+        alert('Por favor selecciona un archivo primero.');
+      }
+    }
+
+    // Teleconsultation schedule simulation
+    function confirmSchedule() {
+      document.getElementById('scheduler-form').style.display = 'none';
+      document.getElementById('scheduler-success').style.display = 'flex';
+    }
+
+    // HAPPIA SIMULATED CHAT INTERACTIONS
+    function handleChatKey(e) {
+      if (e.key === 'Enter') {
+        sendUserMessage();
+      }
+    }
+
+    function handleHomeChatKey(e) {
+      if (e.key === 'Enter') {
+        sendHomeMessage();
+      }
+    }
+
+    function sendHomeMessage() {
+      const input = document.getElementById('ia-home-input');
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = '';
+      switchTab('happia');
+      const chatInput = document.getElementById('chat-input');
+      if (chatInput) {
+        chatInput.value = text;
+        sendUserMessage();
+      }
+    }
+
+    function sendSuggestionHome(text) {
+      switchTab('happia');
+      sendSuggestion(text);
+    }
+
+    function sendUserMessage() {
+      const input = document.getElementById('chat-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      appendMessage(text, 'user');
+      input.value = '';
+
+      // Simulated IA typing and reply
+      setTimeout(() => {
+        let reply = "Entiendo tu duda. Con base en tus métricas clínicas cargadas, tus hábitos están en excelente camino. ¿Quieres que registre esta información?";
+        
+        if (text.toLowerCase().includes('caminata') || text.toLowerCase().includes('presión')) {
+          reply = "Las caminatas activan la circulación y expanden los vasos capilares, lo que ayuda a reducir la presión arterial sistólica de forma natural por hasta 12 horas. ¡Tus 6,400 pasos de hoy son una excelente defensa!";
+        } else if (text.toLowerCase().includes('omeprazol') || text.toLowerCase().includes('medicamento')) {
+          reply = "Recuerda que el Omeprazol debe tomarse en ayunas, idealmente 30 minutos antes del desayuno. Veo que hoy ya lo registraste a las 8:00 AM. ¡Muy bien hecho!";
+        } else if (text.toLowerCase().includes('perfil') || text.toLowerCase().includes('laboratorio')) {
+          reply = "Analizando tu Perfil Bioquímico del 15 de Junio: Tu glucosa basal está en 95 mg/dL (Rango excelente < 100) y colesterol total en 185 mg/dL. Tus indicadores metabólicos demuestran que tu dieta actual y tus caminatas están surtiendo efecto.";
+        }
+        
+        appendMessage(reply, 'bot');
+      }, 1000);
+    }
+
+    function sendSuggestion(text) {
+      appendMessage(text, 'user');
+      setTimeout(() => {
+        let reply = "";
+        if (text.includes('presión')) {
+          reply = "Caminar activa el óxido nítrico en tu cuerpo, dilatando arterias. Al registrar 8,000 pasos diarios disminuyes tu presión arterial sistólica promedio entre 5 y 8 mmHg. Es casi tan efectivo como un fármaco de dosis baja.";
+        } else if (text.includes('Omeprazol')) {
+          reply = "Sí, tu plan prescrito indica tomar 1 cápsula de Omeprazol de 20mg diario por la mañana antes de comer. Hoy ya lo has marcado como tomado. ¿Presentas acidez hoy?";
+        } else if (text.includes('perfil')) {
+          reply = "Tu perfil bioquímico muestra el colesterol total controlado en 185 mg/dL y una función renal saludable (Creatinina en 0.85 mg/dL). Es seguro mantener tu ritmo actual de caminatas e hidratación.";
+        }
+        appendMessage(reply, 'bot');
+      }, 800);
+    }
+
+    function appendMessage(text, sender) {
+      const messagesContainer = document.getElementById('chat-messages');
+      const bubble = document.createElement('div');
+      bubble.className = `chat-bubble ${sender}`;
+      bubble.textContent = text;
+      messagesContainer.appendChild(bubble);
+      
+      // Auto-scroll chat
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    // CANVAS DRAWN METRICS CHART
+    let activeChartType = 'presion';
+
+    function changeEvoIndicator(type, btn) {
+      // Toggle button active state
+      btn.parentNode.querySelectorAll('.indicador-evo-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      activeChartType = type;
+      drawChart();
+    }
+
+    function drawChart() {
+      const canvas = document.getElementById('metricsChart');
+      if (!canvas) return;
+      
+      // Handle High DPI displays
+      const ctx = canvas.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+      
+      const width = rect.width;
+      const height = rect.height;
+      
+      ctx.clearRect(0, 0, width, height);
+
+      // Draw Grid Lines
+      ctx.strokeStyle = '#f1f5f9';
+      ctx.lineWidth = 1;
+      for (let i = 1; i <= 3; i++) {
+        const y = (height - 30) * (i / 4) + 10;
+        ctx.beginPath();
+        ctx.moveTo(35, y);
+        ctx.lineTo(width - 10, y);
+        ctx.stroke();
+      }
+
+      // X-Axis Labels (Days)
+      const days = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '650 10px Plus Jakarta Sans';
+      ctx.textAlign = 'center';
+      
+      const stepX = (width - 50) / 6;
+      for (let i = 0; i < 7; i++) {
+        const x = 35 + i * stepX;
+        ctx.fillText(days[i], x, height - 8);
+      }
+
+      // Draw data points based on selection
+      if (activeChartType === 'presion') {
+        // Sistólica data points
+        const systolic = [128, 124, 126, 122, 120, 118, 120];
+        // Diastólica data points
+        const diastolic = [84, 82, 85, 80, 78, 80, 80];
+
+        // Draw Diastólica line
+        drawChartLine(ctx, diastolic, stepX, height, '#0ea5e9', 'rgba(14, 165, 233, 0.05)', 50, 110);
+        // Draw Sistólica line
+        drawChartLine(ctx, systolic, stepX, height, '#2563eb', 'rgba(37, 99, 235, 0.1)', 90, 140);
+        
+        // Draw Y Axis Labels
+        ctx.fillStyle = '#64748b';
+        ctx.textAlign = 'right';
+        ctx.fillText('140', 25, 20);
+        ctx.fillText('110', 25, 65);
+        ctx.fillText('80', 25, 110);
+      } else if (activeChartType === 'glucosa') {
+        // Glucosa data points
+        const glucose = [105, 98, 110, 92, 99, 94, 95];
+        drawChartLine(ctx, glucose, stepX, height, '#10b981', 'rgba(16, 185, 129, 0.08)', 70, 130);
+        
+        // Draw Y Axis Labels
+        ctx.fillStyle = '#64748b';
+        ctx.textAlign = 'right';
+        ctx.fillText('130', 25, 20);
+        ctx.fillText('100', 25, 65);
+        ctx.fillText('70', 25, 110);
+      } else if (activeChartType === 'colesterol') {
+        // Colesterol data points
+        const cholesterol = [195, 192, 190, 188, 185, 187, 185];
+        drawChartLine(ctx, cholesterol, stepX, height, '#7c3aed', 'rgba(124, 58, 237, 0.08)', 150, 220);
+        
+        // Draw Y Axis Labels
+        ctx.fillStyle = '#64748b';
+        ctx.textAlign = 'right';
+        ctx.fillText('220', 25, 20);
+        ctx.fillText('185', 25, 65);
+        ctx.fillText('150', 25, 110);
+      } else if (activeChartType === 'peso') {
+        // Peso data points
+        const weight = [74, 73.5, 73.2, 72.8, 72.5, 72.2, 72.0];
+        drawChartLine(ctx, weight, stepX, height, '#358d56', 'rgba(53, 141, 86, 0.08)', 70, 76);
+        
+        // Draw Y Axis Labels
+        ctx.fillStyle = '#64748b';
+        ctx.textAlign = 'right';
+        ctx.fillText('76', 25, 20);
+        ctx.fillText('73', 25, 65);
+        ctx.fillText('70', 25, 110);
+      }
+    }
+
+    function drawChartLine(ctx, data, stepX, canvasHeight, strokeColor, fillColor, minVal, maxVal) {
+      const graphHeight = canvasHeight - 45;
+      const points = data.map((val, idx) => {
+        const x = 35 + idx * stepX;
+        // Normalize val between minVal and maxVal
+        const pct = (val - minVal) / (maxVal - minVal);
+        const y = graphHeight * (1 - pct) + 15;
+        return { x, y };
+      });
+
+      // Draw shadow area
+      ctx.beginPath();
+      ctx.moveTo(points[0].x, graphHeight + 15);
+      points.forEach(p => ctx.lineTo(p.x, p.y));
+      ctx.lineTo(points[points.length - 1].x, graphHeight + 15);
+      ctx.closePath();
+      ctx.fillStyle = fillColor;
+      ctx.fill();
+
+      // Draw Line
+      ctx.beginPath();
+      ctx.moveTo(points[0].x, points[0].y);
+      for (let i = 1; i < points.length; i++) {
+        // Curve lines slightly using quadratic/bezier curves for premium look
+        const xc = (points[i].x + points[i-1].x) / 2;
+        const yc = (points[i].y + points[i-1].y) / 2;
+        ctx.quadraticCurveTo(points[i-1].x, points[i-1].y, xc, yc);
+      }
+      ctx.lineTo(points[points.length-1].x, points[points.length-1].y);
+      ctx.strokeStyle = strokeColor;
+      ctx.lineWidth = 3.5;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+
+      // Draw point circles
+      points.forEach((p, idx) => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 4.5, 0, 2 * Math.PI);
+        ctx.fillStyle = '#ffffff';
+        ctx.fill();
+        ctx.strokeStyle = strokeColor;
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+      });
+    }
+
+    // Initialize first draw
+    window.addEventListener('load', () => {
+      setTimeout(drawChart, 100);
+    });
+    
+    // Redraw chart on window resize
+    window.addEventListener('resize', drawChart);
+  </script>
+</body>
+</html>
