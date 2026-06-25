@@ -507,6 +507,7 @@
       font-size: 1.15rem;
       font-weight: 700;
       color: var(--color-text-main);
+      margin-bottom: 5px;
     }
 
     .user-info p {
@@ -2350,9 +2351,485 @@
       font-weight: 800;
       color: var(--color-text-main);
     }
+
+    /* extracted classes */
+    .evolution-card {
+      margin-bottom: 16px;
+      background: linear-gradient(145deg, #e8f4fd 0%, #dbeafe 50%, #e0f2fe 100%);
+      border: 1.5px solid rgba(147, 197, 253, 0.5);
+      box-shadow: 0 8px 32px rgba(56, 189, 248, 0.08);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+    }
+    .evolution-card-title {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #1e40af;
+      margin-bottom: 12px;
+    }
+    .savings-card {
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.10) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 60% 90%, rgba(0,0,0,0.08) 0%, transparent 50%),
+        linear-gradient(135deg, #4aab72 0%, #358d56 45%, #256b3f 100%);
+      border: none;
+      box-shadow: 0 12px 30px rgba(21, 128, 61, 0.25), inset 0 1px 0 rgba(255,255,255,0.15);
+      padding: 20px 16px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+      border-radius: var(--radius-lg);
+    }
+
+    /* VERSION SELECTOR PANEL (NON-COLLAPSIBLE STATIC) */
+    .version-selector-panel {
+      position: fixed;
+      left: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 9999;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 16px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    body.version-2 .version-selector-panel {
+      background: rgba(15, 23, 42, 0.6);
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .version-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .version-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .version-btn.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(0, 55, 216, 0.3);
+    }
+
+    body.version-2 .version-btn.active {
+      background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+      border-color: transparent;
+      box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4);
+    }
+
+    @media (max-width: 1023px) {
+      .version-selector-panel {
+        position: fixed;
+        left: 50%;
+        top: 20px;
+        bottom: auto;
+        right: auto;
+        transform: translateX(-50%);
+        flex-direction: row;
+        width: auto;
+        padding: 8px 12px;
+        gap: 8px;
+        border-radius: 12px;
+      }
+      .version-btn {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+      }
+    }
+
+    .sim-user-toggle {
+      display: flex;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      padding: 3px;
+    }
+
+    .sim-user-toggle button {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .sim-user-toggle button:hover {
+      color: #ffffff;
+    }
+
+    .sim-user-toggle button.active {
+      background: rgba(255, 255, 255, 0.08);
+      color: #38bdf8;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    .sim-action-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      margin-bottom: 10px;
+    }
+
+    .sim-action-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+    }
+
+    .sim-action-btn:active {
+      transform: scale(0.98);
+    }
+
+    .sim-action-btn.secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+    }
+
+    .sim-action-btn.secondary:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .drawer-footer {
+      margin-top: auto;
+      padding-top: 15px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: center;
+    }
+
+    .drawer-footer p {
+      font-size: 0.65rem;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    /* VERSION 1 AND VERSION 2 COLLATERAL STYLES */
+    .v2-only {
+      display: none !important;
+    }
+
+    body.version-2 .v1-only {
+      display: none !important;
+    }
+
+    body.version-2 .v2-only {
+      display: block !important;
+    }
+
+    /* V2 Blue Banner */
+    .v2-blue-banner {
+      background: linear-gradient(135deg, #0ea5e9 0%, #0037D8 100%);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 16px;
+      box-shadow: 0 10px 25px rgba(0, 55, 216, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      height: 130px;
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+    }
+
+    .v2-banner-content {
+      flex: 1;
+      z-index: 2;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .v2-banner-logo {
+      height: 32px;
+      object-fit: contain;
+      margin-bottom: 8px;
+    }
+
+    .v2-banner-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-top: 4px;
+      margin-bottom: 10px;
+      color: white;
+    }
+
+    .v2-banner-link {
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .v2-banner-link:hover {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .v2-banner-images {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 190px;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .v2-banner-illustration {
+      position: absolute;
+      bottom: -26px;
+      right: -5px;
+      height: 125%;
+      width: 100%;
+      object-fit: contain;
+      object-position: bottom right;
+    }
+
+    /* V2 Banner Pagination Dots */
+    .v2-banner-pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      margin-top: 2px;
+      margin-bottom: 16px;
+    }
+
+    .v2-page-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: rgba(0, 55, 216, 0.15);
+      transition: all 0.2s ease;
+    }
+
+    .v2-page-dot.active {
+      width: 18px;
+      border-radius: 100px;
+      background-color: var(--color-primary);
+    }
+
+    /* V2 Progress Checklist styles */
+    .progress-checklist {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .progress-check-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(0, 55, 216, 0.06);
+    }
+
+    .progress-check-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .progress-check-item:first-child {
+      padding-top: 0;
+    }
+
+    .progress-empty-circle {
+      width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      border: 1.5px solid #cbd5e1;
+      display: inline-block;
+      flex-shrink: 0;
+      box-sizing: border-box;
+    }
+
+    /* V2 Grid Menu */
+    .v2-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .v2-grid-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--color-border);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .v2-grid-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(0, 55, 216, 0.15);
+    }
+
+    .v2-grid-card:active {
+      transform: translateY(0);
+    }
+
+    .v2-card-image {
+      height: 68px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .v2-card-image img {
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .v2-card-text {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+    }
+
+    /* V2 Plan Card */
+    .v2-plan-card {
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.10) 0%, transparent 50%),
+        radial-gradient(ellipse at 60% 90%, rgba(0,0,0,0.15) 0%, transparent 50%),
+        linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #06b6d4 100%);
+      border: none;
+      box-shadow: 0 12px 30px rgba(59, 130, 246, 0.25), inset 0 1px 0 rgba(255,255,255,0.2);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+      height: 110px;
+    }
+
+    .v2-plan-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px rgba(59, 130, 246, 0.35);
+    }
+
+    .v2-plan-card:active {
+      transform: translateY(0);
+    }
+
+    .v2-plan-content {
+      flex: 1;
+      z-index: 2;
+      padding-right: 75px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .v2-plan-content h4 {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 2px;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .v2-plan-content p {
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.35;
+    }
+
+    .v2-plan-image {
+      position: absolute;
+      right: 5px;
+      bottom: 0px;
+      width: 100px;
+      height: 110px;
+      z-index: 2;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .v2-plan-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.2));
+      animation: floatRobot 4s ease-in-out infinite;
+    }
+
+    @keyframes floatRobot {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
   </style>
 </head>
 <body>
+
+  <!-- VERSION SELECTOR PANEL -->
+  <div class="version-selector-panel">
+    <button class="version-btn active" id="btn-ver-1" onclick="setVersion(1)">Versión 1</button>
+    <button class="version-btn" id="btn-ver-2" onclick="setVersion(2)">Versión 2</button>
+  </div>
 
   <!-- DESKTOP DECORATION & INFO -->
   <div class="desktop-bg-decor"></div>
@@ -2382,7 +2859,7 @@
       <!-- CELEBRATION TOAST -->
       <div id="congrats-toast" class="congrats-toast">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        <span>¡Desafío completado! +50 XP</span>
+        <span>¡Desafío completado! +50 puntos Happ</span>
       </div>
 
       <!-- MAIN SCROLLABLE APP VIEW -->
@@ -2397,10 +2874,10 @@
           <!-- User Profile & Settings -->
           <div class="home-header">
             <div class="user-profile">
-              <div class="user-avatar" style="font-weight: 700; background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);">M</div>
+              <div id="home-user-avatar" class="user-avatar" style="font-weight: 700; background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);">M</div>
               <div class="user-info">
-                <h2>Hola Maria 👋</h2>
-                <p>Tu salud está bajo control con Happ</p>
+                <h2 id="home-user-greeting">Hola Maria 👋</h2>
+                <p id="user-points">Tienes 1500 puntos Happ</p>
               </div>
             </div>
             <div class="settings-btn" onclick="alert('Abriendo configuración de tu cuenta...')">
@@ -2408,7 +2885,8 @@
             </div>
           </div>
 
-          <!-- Section 1: Estado General -->
+          <div class="v1-only">
+            <!-- Section 1: Estado General -->
           <div class="glass-card" style="margin-bottom: 16px;">
             <div style="font-size: 0.9rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 12px;">Estado General</div>
             <div class="estado-general-container">
@@ -2445,8 +2923,8 @@
 
 
           <!-- Section 3: Evolución de Indicadores -->
-          <div class="glass-card" style="margin-bottom: 16px; background: linear-gradient(145deg, #e8f4fd 0%, #dbeafe 50%, #e0f2fe 100%) !important; border: 1.5px solid rgba(147, 197, 253, 0.5) !important; box-shadow: 0 8px 32px rgba(56, 189, 248, 0.08) !important;">
-            <div style="font-size: 0.9rem; font-weight: 800; color: #1e40af; margin-bottom: 12px;">Evolución de indicadores</div>
+          <div class="glass-card evolution-card">
+            <div class="evolution-card-title">Evolución de indicadores</div>
             
             <div class="indicadores-evolucion-row">
               <button id="evo-btn-presion" class="indicador-evo-btn active" onclick="changeEvoIndicator('presion', this)">
@@ -2525,23 +3003,7 @@
           </div>
 
           <!-- Section 5: Ahorro en Medicamentos -->
-          <div class="glass-card" style="
-            background:
-              radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.10) 0%, transparent 60%),
-              radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 50%),
-              radial-gradient(ellipse at 60% 90%, rgba(0,0,0,0.08) 0%, transparent 50%),
-              linear-gradient(135deg, #4aab72 0%, #358d56 45%, #256b3f 100%);
-            border: none;
-            box-shadow: 0 12px 30px rgba(21, 128, 61, 0.25), inset 0 1px 0 rgba(255,255,255,0.15);
-            padding: 20px 16px;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: relative;
-            overflow: hidden;
-            z-index: 2;
-          ">
+          <div class="glass-card savings-card">
             <!-- Texture overlay: dot grid -->
             <div style="position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.12) 1px, transparent 1px); background-size: 14px 14px; z-index: 1; pointer-events: none;"></div>
             <!-- Decorative ring -->
@@ -2605,6 +3067,133 @@
 
             </div>
           </div>
+          </div> <!-- end of v1-only -->
+
+          <!-- V2 ONLY SECTIONS -->
+          <div class="v2-only">
+            
+            <!-- Section 1: Blue Banner (at the height of Estado General) -->
+            <div class="v2-blue-banner">
+              <div class="v2-banner-content">
+                <h3 class="v2-banner-title">Descubre lo que<br>hacemos por ti</h3>
+                <a href="#" class="v2-banner-link" onclick="alert('Descubre lo que hacemos por ti: Próximamente disponible.'); return false;">Ver más</a>
+              </div>
+              <div class="v2-banner-images">
+                <img src="Happ IA.png" class="v2-banner-illustration" alt="Happ IA">
+              </div>
+            </div>
+
+            <!-- Banner Pagination Dots -->
+            <div class="v2-banner-pagination">
+              <span class="v2-page-dot"></span>
+              <span class="v2-page-dot"></span>
+              <span class="v2-page-dot active"></span>
+              <span class="v2-page-dot"></span>
+              <span class="v2-page-dot"></span>
+            </div>
+
+            <!-- Section 2: Grid Menu -->
+            <div class="v2-grid">
+              <div class="v2-grid-card" onclick="openModal('upload')">
+                <div class="v2-card-image">
+                  <img src="bottle_user_final.png" alt="Sube tu receta" style="transform: scale(1.25); transform-origin: center;">
+                </div>
+                <span class="v2-card-text">Sube tu receta</span>
+              </div>
+              
+              <div class="v2-grid-card" onclick="alert('Abriendo mis resultados...')">
+                <div class="v2-card-image">
+                  <img src="MedkitGreenCross-BJDiz8YX 1.png" alt="Mis resultados">
+                </div>
+                <span class="v2-card-text">Mis resultados</span>
+              </div>
+            </div>
+
+            <!-- Section: Tu progreso hoy -->
+            <div class="glass-card" style="margin-bottom: 16px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                <span style="font-size: 0.88rem; font-weight: 800; color: var(--color-text-main);">Tu progreso hoy</span>
+                <span style="font-size: 0.68rem; font-weight: 700; background: #e0f2fe; color: #0369a1; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.2px;">2/3 listo</span>
+              </div>
+              <div class="progress-checklist">
+                <div class="progress-check-item">
+                  <iconify-icon icon="solar:check-circle-bold" style="color: var(--color-success); font-size: 20px; flex-shrink: 0;"></iconify-icon>
+                  <span style="font-size: 0.78rem; font-weight: 600; color: var(--color-text-main); margin-left: 2px;">Examen de laboratorio subido</span>
+                </div>
+                <div class="progress-check-item">
+                  <iconify-icon icon="solar:check-circle-bold" style="color: var(--color-success); font-size: 20px; flex-shrink: 0;"></iconify-icon>
+                  <span style="font-size: 0.78rem; font-weight: 600; color: var(--color-text-main); margin-left: 2px;">Presión registrada hoy</span>
+                </div>
+                <div class="progress-check-item" style="opacity: 0.75;">
+                  <span class="progress-empty-circle"></span>
+                  <span style="font-size: 0.78rem; font-weight: 500; color: var(--color-text-muted); margin-left: 2px;">Primera receta pendiente</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section: Tu historial reciente -->
+            <div class="recent-activity-section" style="margin-bottom: 16px; margin-top: 16px;">
+              <div class="recent-activity-header" style="margin-bottom: 12px; margin-top: 4px; padding-left: 2px;">
+                <h3 style="font-size: 0.9rem; font-weight: 800; color: var(--color-text-main);">Tu historial reciente</h3>
+                <a href="#" class="btn-view-all" onclick="alert('Redirigiendo a historial...'); return false;" style="font-size: 0.76rem; font-weight: 700; color: var(--color-primary); text-decoration: none;">Ver todo</a>
+              </div>
+
+              <div class="historial-list">
+
+                <!-- Item 1: Examen -->
+                <div class="historial-card" onclick="alert('Detalle del examen de sangre: Próximamente disponible.')">
+                  <div class="historial-icon-box" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);">
+                    <iconify-icon icon="solar:test-tube-minimalistic-bold-duotone" style="color: #2563eb;"></iconify-icon>
+                  </div>
+                  <div class="historial-body">
+                    <div class="historial-title">Examen de sangre analizado</div>
+                    <div class="historial-meta">
+                      <span class="historial-badge examen">Examen</span>
+                      <span class="historial-dot"></span>
+                      <span class="historial-time">Hace 1 día</span>
+                    </div>
+                  </div>
+                  <iconify-icon icon="solar:menu-dots-bold" class="historial-menu"></iconify-icon>
+                </div>
+
+                <!-- Item 2: Receta -->
+                <div class="historial-card" onclick="alert('Detalle de la receta médica: Próximamente disponible.')">
+                  <div class="historial-icon-box" style="background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);">
+                    <iconify-icon icon="solar:document-text-bold-duotone" style="color: #059669;"></iconify-icon>
+                  </div>
+                  <div class="historial-body">
+                    <div class="historial-title">Nueva receta agregada</div>
+                    <div class="historial-meta">
+                      <span class="historial-badge receta">Receta</span>
+                      <span class="historial-dot"></span>
+                      <span class="historial-status">Omeprazol 20mg</span>
+                      <span class="historial-dot"></span>
+                      <span class="historial-time">Hace 3 días</span>
+                    </div>
+                  </div>
+                  <iconify-icon icon="solar:menu-dots-bold" class="historial-menu"></iconify-icon>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Section 3: Plan de Salud Card -->
+            <div class="v2-plan-card" onclick="alert('Abriendo asistente de plan de salud...')">
+              <!-- Texture overlay: dot grid -->
+              <div style="position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.12) 1px, transparent 1px); background-size: 14px 14px; z-index: 1; pointer-events: none;"></div>
+              <!-- Decorative ring -->
+              <div style="position: absolute; right: 50px; top: -35px; width: 110px; height: 110px; border-radius: 50%; border: 20px solid rgba(255,255,255,0.06); z-index: 1; pointer-events: none;"></div>
+
+              <div class="v2-plan-content">
+                <h4>Indícanos tu plan de salud</h4>
+                <p>Y recibe ayuda precisa para usar<br>mejor tu cobertura.</p>
+              </div>
+              <div class="v2-plan-image">
+                <img src="Frame 2147223765.png" alt="Happ IA">
+              </div>
+            </div>
+
+          </div> <!-- end of v2-only -->
 
         </div>
 
@@ -2802,7 +3391,7 @@
     }
 
     // CHALLENGES PROGRESS STATE
-    let points = 150;
+    let points = 1500;
     let challengeStates = [true, true, true, false]; // indices representing each challenge completed state
     
     function toggleChallenge(element, index, xpReward, forceComplete = false) {
@@ -2821,11 +3410,12 @@
         element.classList.add('completed');
         challengeStates[index] = true;
         points += xpReward;
-        showCongratsToast(`+${xpReward} XP ganado!`);
+        showCongratsToast(`+${xpReward} puntos Happ ganados!`);
       }
       
       // Update points display
-      document.getElementById('user-points').textContent = `${points} XP`;
+      const pointsEl = document.getElementById('user-points');
+      if (pointsEl) pointsEl.textContent = `Tienes ${points} puntos Happ`;
       
       // Recalculate daily progress percentage
       const completedCount = challengeStates.filter(Boolean).length;
@@ -3014,6 +3604,28 @@
       drawChart();
     }
 
+    // ==========================================================================
+    // VERSION CONTROL FUNCTIONS
+    // ==========================================================================
+    function setVersion(verNum) {
+      const body = document.body;
+      const btn1 = document.getElementById('btn-ver-1');
+      const btn2 = document.getElementById('btn-ver-2');
+      
+      if (verNum === 1) {
+        body.classList.remove('version-2');
+        if (btn1) btn1.classList.add('active');
+        if (btn2) btn2.classList.remove('active');
+      } else {
+        body.classList.add('version-2');
+        if (btn1) btn1.classList.remove('active');
+        if (btn2) btn2.classList.add('active');
+      }
+      
+      // Redraw metric chart to adjust colors
+      setTimeout(drawChart, 100);
+    }
+
     function drawChart() {
       const canvas = document.getElementById('metricsChart');
       if (!canvas) return;
@@ -3032,8 +3644,10 @@
       
       ctx.clearRect(0, 0, width, height);
 
+      const isV2 = false; // De momento idéntica a la primera, no modo dark
+
       // Draw Grid Lines
-      ctx.strokeStyle = '#f1f5f9';
+      ctx.strokeStyle = isV2 ? 'rgba(255, 255, 255, 0.06)' : '#f1f5f9';
       ctx.lineWidth = 1;
       for (let i = 1; i <= 3; i++) {
         const y = (height - 30) * (i / 4) + 10;
@@ -3045,8 +3659,8 @@
 
       // X-Axis Labels (Days)
       const days = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
-      ctx.fillStyle = '#94a3b8';
-      ctx.font = '650 10px Plus Jakarta Sans';
+      ctx.fillStyle = isV2 ? '#64748b' : '#94a3b8';
+      ctx.font = '650 10px Inter, sans-serif';
       ctx.textAlign = 'center';
       
       const stepX = (width - 50) / 6;
@@ -3057,51 +3671,57 @@
 
       // Draw data points based on selection
       if (activeChartType === 'presion') {
-        // Sistólica data points
         const systolic = [128, 124, 126, 122, 120, 118, 120];
-        // Diastólica data points
         const diastolic = [84, 82, 85, 80, 78, 80, 80];
 
-        // Draw Diastólica line
-        drawChartLine(ctx, diastolic, stepX, height, '#0ea5e9', 'rgba(14, 165, 233, 0.05)', 50, 110);
-        // Draw Sistólica line
-        drawChartLine(ctx, systolic, stepX, height, '#2563eb', 'rgba(37, 99, 235, 0.1)', 90, 140);
+        if (isV2) {
+          drawChartLine(ctx, diastolic, stepX, height, '#c084fc', 'rgba(168, 85, 247, 0.05)', 50, 110);
+          drawChartLine(ctx, systolic, stepX, height, '#6366f1', 'rgba(99, 102, 241, 0.1)', 90, 140);
+        } else {
+          drawChartLine(ctx, diastolic, stepX, height, '#0ea5e9', 'rgba(14, 165, 233, 0.05)', 50, 110);
+          drawChartLine(ctx, systolic, stepX, height, '#2563eb', 'rgba(37, 99, 235, 0.1)', 90, 140);
+        }
         
-        // Draw Y Axis Labels
-        ctx.fillStyle = '#64748b';
+        ctx.fillStyle = isV2 ? '#94a3b8' : '#64748b';
         ctx.textAlign = 'right';
         ctx.fillText('140', 25, 20);
         ctx.fillText('110', 25, 65);
         ctx.fillText('80', 25, 110);
       } else if (activeChartType === 'glucosa') {
-        // Glucosa data points
         const glucose = [105, 98, 110, 92, 99, 94, 95];
-        drawChartLine(ctx, glucose, stepX, height, '#10b981', 'rgba(16, 185, 129, 0.08)', 70, 130);
+        if (isV2) {
+          drawChartLine(ctx, glucose, stepX, height, '#10b981', 'rgba(16, 185, 129, 0.08)', 70, 130);
+        } else {
+          drawChartLine(ctx, glucose, stepX, height, '#10b981', 'rgba(16, 185, 129, 0.08)', 70, 130);
+        }
         
-        // Draw Y Axis Labels
-        ctx.fillStyle = '#64748b';
+        ctx.fillStyle = isV2 ? '#94a3b8' : '#64748b';
         ctx.textAlign = 'right';
         ctx.fillText('130', 25, 20);
         ctx.fillText('100', 25, 65);
         ctx.fillText('70', 25, 110);
       } else if (activeChartType === 'colesterol') {
-        // Colesterol data points
         const cholesterol = [195, 192, 190, 188, 185, 187, 185];
-        drawChartLine(ctx, cholesterol, stepX, height, '#7c3aed', 'rgba(124, 58, 237, 0.08)', 150, 220);
+        if (isV2) {
+          drawChartLine(ctx, cholesterol, stepX, height, '#f472b6', 'rgba(244, 114, 182, 0.08)', 150, 220);
+        } else {
+          drawChartLine(ctx, cholesterol, stepX, height, '#7c3aed', 'rgba(124, 58, 237, 0.08)', 150, 220);
+        }
         
-        // Draw Y Axis Labels
-        ctx.fillStyle = '#64748b';
+        ctx.fillStyle = isV2 ? '#94a3b8' : '#64748b';
         ctx.textAlign = 'right';
         ctx.fillText('220', 25, 20);
         ctx.fillText('185', 25, 65);
         ctx.fillText('150', 25, 110);
       } else if (activeChartType === 'peso') {
-        // Peso data points
         const weight = [74, 73.5, 73.2, 72.8, 72.5, 72.2, 72.0];
-        drawChartLine(ctx, weight, stepX, height, '#358d56', 'rgba(53, 141, 86, 0.08)', 70, 76);
+        if (isV2) {
+          drawChartLine(ctx, weight, stepX, height, '#fb7185', 'rgba(251, 113, 133, 0.08)', 70, 76);
+        } else {
+          drawChartLine(ctx, weight, stepX, height, '#358d56', 'rgba(53, 141, 86, 0.08)', 70, 76);
+        }
         
-        // Draw Y Axis Labels
-        ctx.fillStyle = '#64748b';
+        ctx.fillStyle = isV2 ? '#94a3b8' : '#64748b';
         ctx.textAlign = 'right';
         ctx.fillText('76', 25, 20);
         ctx.fillText('73', 25, 65);
