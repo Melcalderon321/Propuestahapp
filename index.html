@@ -2548,17 +2548,32 @@
       font-weight: 600;
     }
 
-    /* VERSION 1 AND VERSION 2 COLLATERAL STYLES */
-    .v2-only {
+    /* VERSION 1, 2 AND 3 COLLATERAL STYLES */
+    .v2-only, .v3-only {
       display: none !important;
     }
 
-    body.version-2 .v1-only {
+    body.version-2 .v1-only,
+    body.version-2 .v3-only {
       display: none !important;
     }
 
     body.version-2 .v2-only {
       display: block !important;
+    }
+
+    body.version-3 .v1-only,
+    body.version-3 .v2-only {
+      display: none !important;
+    }
+
+    body.version-3 .v3-only {
+      display: block !important;
+      padding-top: 8px;
+    }
+
+    body.version-3 .home-header {
+      display: none !important;
     }
 
     /* V2 Blue Banner */
@@ -2821,6 +2836,477 @@
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-5px); }
     }
+
+    /* ==========================================================================
+       VERSION 3 - CLUB HAPP LOYALTY STYLES
+       ========================================================================== */
+    .v3-loyalty-card {
+      background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
+      border-radius: 28px;
+      padding: 24px 20px 36px 20px;
+      position: relative;
+      margin-top: 40px; /* Leave room for overlapping crown badge */
+      color: #ffffff;
+      box-shadow: 0 10px 25px rgba(0, 55, 216, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-sizing: border-box;
+    }
+
+    .v3-crown-badge {
+      position: absolute;
+      top: -35px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 3.5px solid var(--color-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      z-index: 5;
+    }
+
+    .v3-crown-badge iconify-icon {
+      font-size: 34px;
+      color: var(--color-primary);
+    }
+
+    .v3-greeting {
+      font-size: 1.15rem;
+      font-weight: 500;
+      text-align: center;
+      margin-top: 40px;
+      letter-spacing: 0.1px;
+    }
+
+    .v3-membership-title {
+      font-size: 1.12rem;
+      font-weight: 800;
+      text-align: center;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      letter-spacing: 0.2px;
+    }
+
+    .v3-membership-title iconify-icon {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.85);
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .v3-progress-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 22px;
+      padding: 0 4px;
+    }
+
+    .v3-progress-container {
+      flex: 1;
+      position: relative;
+      height: 14px;
+    }
+
+    .v3-progress-track {
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 100px;
+      position: relative;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+
+    .v3-progress-fill {
+      height: 100%;
+      width: 58%; /* matches indicator percentage */
+      background: linear-gradient(90deg, #ffe066 0%, #f5b000 100%);
+      border-radius: 100px;
+      animation: fillProgressV3 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .v3-progress-thumb {
+      position: absolute;
+      top: 50%;
+      left: 58%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: moveThumbV3 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards, pulseThumb 2s infinite alternate 1.4s;
+      cursor: pointer;
+      z-index: 3;
+    }
+
+    .v3-progress-thumb iconify-icon {
+      font-size: 26px;
+      color: #f5b000;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+    }
+
+    @keyframes fillProgressV3 {
+      from { width: 0%; }
+      to { width: 58%; }
+    }
+
+    @keyframes moveThumbV3 {
+      from { left: 0%; }
+      to { left: 58%; }
+    }
+
+    @keyframes pulseThumb {
+      0% { transform: translate(-50%, -50%) scale(1); }
+      100% { transform: translate(-50%, -50%) scale(1.12); }
+    }
+
+    .v3-membership-badge-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      margin-top: -12px;
+    }
+
+    .v3-membership-label {
+      font-size: 7px;
+      font-weight: 800;
+      color: #0b4550;
+      background: #cbf2f9;
+      border: 1px solid rgba(11, 69, 80, 0.15);
+      padding: 1.5px 6px;
+      border-radius: 100px;
+      margin-bottom: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: 0 1.5px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .v3-membership-circle {
+      width: 38px;
+      height: 38px;
+      background: var(--color-primary);
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+      transition: transform 0.2s;
+      cursor: pointer;
+    }
+
+    .v3-membership-circle:hover {
+      transform: scale(1.05);
+    }
+
+    .v3-membership-circle iconify-icon {
+      font-size: 20px;
+      color: #ffffff;
+    }
+
+    .v3-mission-text {
+      font-size: 0.82rem;
+      line-height: 1.45;
+      text-align: center;
+      margin-top: 18px;
+      font-weight: 400;
+      padding: 0 4px;
+      opacity: 0.95;
+    }
+
+    .v3-mission-text strong {
+      font-weight: 800;
+    }
+
+    .v3-update-text {
+      font-size: 0.65rem;
+      color: rgba(255, 255, 255, 0.7);
+      text-align: center;
+      margin-top: 8px;
+      font-weight: 500;
+      letter-spacing: 0.1px;
+    }
+
+    /* Overlapping action cards */
+    .v3-action-cards-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: -24px; /* overlap onto blue card */
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 10;
+      padding: 0 4px;
+    }
+
+    .v3-action-card {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border-radius: 20px;
+      padding: 8px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      min-height: 128px;
+      box-shadow: 0 8px 32px rgba(0, 55, 216, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      cursor: pointer;
+      transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.22s ease;
+      box-sizing: border-box;
+      text-decoration: none;
+    }
+
+    .v3-action-card:hover {
+      transform: translateY(-3px);
+      background: rgba(255, 255, 255, 0.55);
+      box-shadow: 0 12px 30px rgba(0, 55, 216, 0.08);
+      border-color: rgba(255, 255, 255, 0.85);
+    }
+
+    .v3-action-card:active {
+      transform: translateY(-1px);
+    }
+
+    .v3-action-card-icon {
+      width: 68px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .v3-action-card-icon iconify-icon {
+      font-size: 40px;
+    }
+
+    .v3-action-card-text {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #475569;
+      text-align: center;
+      line-height: 1.25;
+      margin-top: 0;
+    }
+
+    /* Exclusive Discounts */
+    .v3-section-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-top: 12px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding-left: 2px;
+    }
+
+    .v3-section-title iconify-icon {
+      font-size: 18px;
+      color: var(--color-primary);
+    }
+
+    .v3-discounts-row {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 10px;
+      margin-bottom: 24px;
+      scroll-snap-type: x mandatory;
+    }
+
+    .v3-discounts-row::-webkit-scrollbar {
+      display: none;
+    }
+
+    .v3-discount-card {
+      flex: 0 0 280px;
+      scroll-snap-align: start;
+      border-radius: 18px;
+      padding: 16px;
+      color: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+      box-sizing: border-box;
+    }
+
+    /* Gradient colors for cards using Happ's brand palette */
+    .v3-discount-card.lunes {
+      background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
+    }
+
+    .v3-discount-card.martes {
+      background: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
+    }
+
+    .v3-discount-card.miercoles {
+      background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+    }
+
+    .v3-discount-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      z-index: 2;
+    }
+
+    .v3-discount-day {
+      font-size: 1.15rem;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .v3-discount-desc {
+      font-size: 0.68rem;
+      opacity: 0.9;
+      line-height: 1.35;
+      margin-bottom: 6px;
+      font-weight: 500;
+      padding-right: 8px;
+    }
+
+    .v3-discount-percent-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    .v3-discount-percent {
+      font-size: 2.1rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .v3-discount-percent-small {
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .v3-unipay-pill {
+      background: #000000;
+      color: #ffffff;
+      font-size: 8px;
+      font-weight: 800;
+      padding: 2.5px 6.5px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .v3-unipay-pill iconify-icon {
+      font-size: 10px;
+    }
+
+    .v3-discount-subtext {
+      font-size: 0.58rem;
+      font-weight: 700;
+      opacity: 0.95;
+      line-height: 1.25;
+      margin-top: 6px;
+    }
+
+    .v3-discount-right {
+      width: 80px;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+      box-shadow: inset 0 1px 4px rgba(0,0,0,0.06);
+      flex-shrink: 0;
+    }
+
+    .v3-brand-logo-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    /* CSS stylized text-logos for authentic Unimarc look */
+    .v3-text-logo-brand {
+      font-size: 9px;
+      font-weight: 800;
+      color: #334155;
+      text-align: center;
+      width: 100%;
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 4px;
+      line-height: 1.1;
+    }
+
+    .v3-text-logo-brand:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .v3-text-logo-brand.nuestra-cocina {
+      font-family: 'Georgia', serif;
+      font-style: italic;
+      color: #0d4754;
+      font-weight: 700;
+    }
+
+    .v3-text-logo-brand.nubelin {
+      color: #ffffff;
+      background: #0ea5e9;
+      padding: 2.5px 5px;
+      border-radius: 6px;
+      font-size: 8px;
+      font-weight: 900;
+      letter-spacing: 0.2px;
+      border-bottom: none;
+    }
+
+    .v3-text-logo-brand.smart-clean {
+      color: #22c55e;
+      font-size: 8px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .v3-text-logo-brand.frescos {
+      color: #eab308;
+      font-size: 8.5px;
+      font-weight: 800;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .v3-text-logo-brand.premium-meds {
+      color: #6366f1;
+      font-family: sans-serif;
+      font-weight: 800;
+    }
   </style>
 </head>
 <body>
@@ -2829,6 +3315,7 @@
   <div class="version-selector-panel">
     <button class="version-btn active" id="btn-ver-1" onclick="setVersion(1)">Versión 1</button>
     <button class="version-btn" id="btn-ver-2" onclick="setVersion(2)">Versión 2</button>
+    <button class="version-btn" id="btn-ver-3" onclick="setVersion(3)">Versión 3</button>
   </div>
 
   <!-- DESKTOP DECORATION & INFO -->
@@ -3195,6 +3682,173 @@
 
           </div> <!-- end of v2-only -->
 
+          <!-- V3 ONLY SECTIONS (Club Happ Loyalty Dashboard) -->
+          <div class="v3-only">
+            
+            <!-- Section 1: Loyalty Card -->
+            <div class="v3-loyalty-card">
+              <div class="v3-crown-badge">
+                <img src="logo_happ_v3.png" alt="Happ" style="width: 50px; height: 50px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));">
+              </div>
+              <div class="v3-greeting">Hola Maria</div>
+              <div class="v3-membership-title" id="v3-user-points">
+                Tienes 1500 puntos Happ
+              </div>
+              
+              <!-- Progress Bar Row -->
+              <div class="v3-progress-row">
+                <div class="v3-progress-container">
+                  <div class="v3-progress-track">
+                    <div class="v3-progress-fill"></div>
+                    <div class="v3-progress-thumb">
+                      <iconify-icon icon="solar:star-angle-bold"></iconify-icon>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Mission Text -->
+              <div class="v3-mission-text">
+                Este mes tu misión es <strong>cotizar tu primera receta</strong> y obtener el <strong>mejor precio</strong>.
+              </div>
+            </div>
+
+            <!-- Section 2: Overlapping Sub-Cards -->
+            <div class="v3-action-cards-row">
+              <div class="v3-action-card" onclick="alert('Redirigiendo a tus ahorros...')">
+                <div class="v3-action-card-icon">
+                  <img src="piggy_icon.png" alt="Ahorro" style="width: 62px; height: 62px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));">
+                </div>
+                <span class="v3-action-card-text">Ahorrado<br>$69.124</span>
+              </div>
+              
+              <div class="v3-action-card" onclick="openModal('upload')">
+                <div class="v3-action-card-icon">
+                  <img src="bottle_user_final.png" alt="Sube tu receta" style="width: 64px; height: 64px; object-fit: contain; transform: scale(1.15); transform-origin: center;">
+                </div>
+                <span class="v3-action-card-text">Sube tu<br>receta</span>
+              </div>
+              
+              <div class="v3-action-card" onclick="alert('Abriendo mis resultados...')">
+                <div class="v3-action-card-icon">
+                  <img src="MedkitGreenCross-BJDiz8YX 1.png" alt="Mis resultados" style="width: 58px; height: 58px; object-fit: contain;">
+                </div>
+                <span class="v3-action-card-text">Mis<br>resultados</span>
+              </div>
+            </div>
+
+            <!-- Section 3: Exclusive Discounts -->
+            <div class="v3-section-title">
+              Sugerencias para hoy
+            </div>
+            
+            <div class="v3-discounts-row">
+              <!-- Discount Card 1: Plan de Salud -->
+              <div class="v3-discount-card lunes" style="background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%); cursor: pointer;" onclick="alert('Abriendo asistente de plan de salud...')">
+                <!-- Texture overlay: dot grid -->
+                <div style="position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.12) 1px, transparent 1px); background-size: 14px 14px; z-index: 1; pointer-events: none;"></div>
+                <div class="v3-discount-left" style="justify-content: center; gap: 8px;">
+                  <div class="v3-discount-day" style="font-size: 1.05rem; font-weight: 800; text-transform: none; line-height: 1.25;">Indícanos tu plan de salud</div>
+                  <div class="v3-discount-desc" style="font-size: 0.72rem; opacity: 0.95; font-weight: 500; line-height: 1.35; padding-right: 4px;">Y recibe ayuda precisa para usar mejor tu cobertura.</div>
+                </div>
+                <div style="width: 75px; height: 100%; display: flex; align-items: center; justify-content: center; z-index: 2; flex-shrink: 0;">
+                  <img src="Frame 2147223765.png" alt="Plan de Salud" style="width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));">
+                </div>
+              </div>
+
+              <!-- Discount Card 2: Martes -->
+              <div class="v3-discount-card martes" style="cursor: pointer;" onclick="openModal('upload')">
+                <div class="v3-discount-left">
+                  <div class="v3-discount-day" style="text-transform: none; font-size: 1.1rem;">Sube tu receta</div>
+                  <div class="v3-discount-desc">Y obtén hasta 40% de descuento en medicamentos</div>
+                  <div class="v3-discount-percent-row">
+                    <span class="v3-discount-percent">40%</span>
+                    <span class="v3-discount-percent-small">
+                      <span>dcto.</span>
+                    </span>
+                  </div>
+                  <div class="v3-discount-subtext">Aplica para recetas cotizadas hoy</div>
+                </div>
+                <div class="v3-discount-right" style="background: rgba(255,255,255,0.15); box-shadow: none;">
+                  <div class="v3-brand-logo-panel" style="gap: 0;">
+                    <iconify-icon icon="solar:pill-bold" style="font-size: 38px; color: #ffffff;"></iconify-icon>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Discount Card 3: Miércoles -->
+              <div class="v3-discount-card miercoles">
+                <div class="v3-discount-left">
+                  <div class="v3-discount-day">Miércoles</div>
+                  <div class="v3-discount-desc">Medicamentos y Recetas Médicas</div>
+                  <div class="v3-discount-percent-row">
+                    <span class="v3-discount-percent">30%</span>
+                    <span class="v3-discount-percent-small">
+                      <span>dcto.</span>
+                      <span class="v3-unipay-pill">
+                        <iconify-icon icon="solar:card-bold"></iconify-icon> unipay
+                      </span>
+                    </span>
+                  </div>
+                  <div class="v3-discount-subtext">20% dcto. TODO MEDIO DE PAGO</div>
+                </div>
+                <div class="v3-discount-right">
+                  <div class="v3-brand-logo-panel">
+                    <span class="v3-text-logo-brand premium-meds">HappCare</span>
+                    <iconify-icon icon="solar:medical-kit-bold" style="font-size: 24px; color: #0ea5e9;"></iconify-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 4: Subidos recientemente -->
+            <div class="recent-activity-section" style="margin-bottom: 24px; padding: 0 4px;">
+              <div class="recent-activity-header" style="margin-bottom: 12px; margin-top: 4px; display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="font-size: 0.95rem; font-weight: 800; color: #1e293b; margin: 0;">Subidos recientemente</h3>
+                <a href="#" class="btn-view-all" onclick="alert('Redirigiendo a historial...'); return false;" style="font-size: 0.76rem; font-weight: 700; color: var(--color-primary); text-decoration: none;">Ver todo</a>
+              </div>
+
+              <div class="historial-list">
+
+                <!-- Item 1: Examen -->
+                <div class="historial-card" onclick="alert('Detalle del examen de sangre: Próximamente disponible.')">
+                  <div class="historial-icon-box" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);">
+                    <iconify-icon icon="solar:test-tube-minimalistic-bold-duotone" style="color: #2563eb;"></iconify-icon>
+                  </div>
+                  <div class="historial-body">
+                    <div class="historial-title">Examen de sangre analizado</div>
+                    <div class="historial-meta">
+                      <span class="historial-badge examen">Examen</span>
+                      <span class="historial-dot"></span>
+                      <span class="historial-time">Hace 1 día</span>
+                    </div>
+                  </div>
+                  <iconify-icon icon="solar:menu-dots-bold" class="historial-menu"></iconify-icon>
+                </div>
+
+                <!-- Item 2: Receta -->
+                <div class="historial-card" onclick="alert('Detalle de la receta médica: Próximamente disponible.')">
+                  <div class="historial-icon-box" style="background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);">
+                    <iconify-icon icon="solar:document-text-bold-duotone" style="color: #059669;"></iconify-icon>
+                  </div>
+                  <div class="historial-body">
+                    <div class="historial-title">Nueva receta agregada</div>
+                    <div class="historial-meta">
+                      <span class="historial-badge receta">Receta</span>
+                      <span class="historial-dot"></span>
+                      <span class="historial-status">Omeprazol 20mg</span>
+                      <span class="historial-dot"></span>
+                      <span class="historial-time">Hace 3 días</span>
+                    </div>
+                  </div>
+                  <iconify-icon icon="solar:menu-dots-bold" class="historial-menu"></iconify-icon>
+                </div>
+
+              </div>
+            </div>
+
+          </div> <!-- end of v3-only -->
+
         </div>
 
       </div>
@@ -3417,6 +4071,9 @@
       const pointsEl = document.getElementById('user-points');
       if (pointsEl) pointsEl.textContent = `Tienes ${points} puntos Happ`;
       
+      const pointsElV3 = document.getElementById('v3-user-points');
+      if (pointsElV3) pointsElV3.textContent = `Tienes ${points} puntos Happ`;
+      
       // Recalculate daily progress percentage
       const completedCount = challengeStates.filter(Boolean).length;
       const totalCount = challengeStates.length;
@@ -3611,16 +4268,27 @@
       const body = document.body;
       const btn1 = document.getElementById('btn-ver-1');
       const btn2 = document.getElementById('btn-ver-2');
+      const btn3 = document.getElementById('btn-ver-3');
+      
+      body.classList.remove('version-1', 'version-2', 'version-3');
+      
+      if (btn1) btn1.classList.remove('active');
+      if (btn2) btn2.classList.remove('active');
+      if (btn3) btn3.classList.remove('active');
       
       if (verNum === 1) {
-        body.classList.remove('version-2');
+        body.classList.add('version-1');
         if (btn1) btn1.classList.add('active');
-        if (btn2) btn2.classList.remove('active');
-      } else {
+      } else if (verNum === 2) {
         body.classList.add('version-2');
-        if (btn1) btn1.classList.remove('active');
         if (btn2) btn2.classList.add('active');
+      } else if (verNum === 3) {
+        body.classList.add('version-3');
+        if (btn3) btn3.classList.add('active');
       }
+      
+      // Reset to home tab
+      switchTab('inicio');
       
       // Redraw metric chart to adjust colors
       setTimeout(drawChart, 100);
